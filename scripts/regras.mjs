@@ -25,6 +25,7 @@ export const EXTENSOES = {
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const VERSAO = /^\d{1,3}\.\d{1,3}\.\d{1,3}$/
 const COR = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/
+const COR6 = /^#[0-9a-fA-F]{6}$/
 const ARQUIVO = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(png|jpg|webp|gif|mp4|webm|mp3|wav|ogg|m4a)$/
 const CONTROLE = /[\u0000-\u001f\u007f]/
 
@@ -94,8 +95,8 @@ export function validarManifesto(m, pasta) {
       if (m.cores !== undefined) erros.push('uma moldura usa "arquivo" (imagem) ou "cores" (degradê), não os dois')
       nomeDeArquivo(m.arquivo, 'arquivo', 'moldura', erros)
       arquivos.push({ arquivo: m.arquivo, tipo: 'moldura' })
-    } else if (!Array.isArray(m.cores) || m.cores.length < 2 || m.cores.length > 6 || !m.cores.every((c) => typeof c === 'string' && COR.test(c))) {
-      erros.push('"cores" precisa ter de 2 a 6 cores como #1E1F22 (ou use "arquivo" com uma imagem)')
+    } else if (!Array.isArray(m.cores) || m.cores.length < 2 || m.cores.length > 6 || !m.cores.every((c) => typeof c === 'string' && COR6.test(c))) {
+      erros.push('"cores" precisa ter de 2 a 6 cores #RRGGBB (ou use "arquivo" com uma imagem)')
     }
     if (m.animada !== undefined && typeof m.animada !== 'boolean') erros.push('"animada" precisa ser true ou false')
     if (m.brilho !== undefined && typeof m.brilho !== 'boolean') erros.push('"brilho" precisa ser true ou false')
