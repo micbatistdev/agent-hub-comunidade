@@ -1,0 +1,55 @@
+# Confere cada proposta de pacote e, depois de aprovada, atualiza o catálogo (indice.json).
+name: Catálogo
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths: ['pacotes/**', 'scripts/**']
+
+jobs:
+  conferir:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Conferir os pacotes
+        run: node scripts/gerar-indice.mjs --conferir
+      - name: Só arquivos dentro de pacotes/
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          fora=$(git diff --name-only "origin/${{ github.base_ref }}" HEAD | grep -v '^pacotes/' || true)
+          if [ -n "$fora" ]; then
+            echo "A proposta mexe em arquivos fora de pacotes/:"
+            echo "$fora"
+            exit 1
+          fi
+
+  catalogo:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Gerar o indice.json
+        run: node scripts/gerar-indice.mjs
+      - name: Gravar o catálogo
+        run: |
+          if git diff --quiet -- indice.json; then
+            echo "Catálogo já estava em dia."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add indice.json
+          git commit -m "Atualiza o catálogo"
+          git push

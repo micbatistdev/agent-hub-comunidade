@@ -1,0 +1,10 @@
+{
+  "formato": 1,
+  "id": "gota-de-cristal",
+  "tipo": "som",
+  "nome": "Gota de cristal",
+  "autor": "Agent Hub",
+  "descricao": "Som de notificação curto e suave, como uma gota num copo de cristal.",
+  "versao": "1.0.0",
+  "arquivo": "som.wav"
+}

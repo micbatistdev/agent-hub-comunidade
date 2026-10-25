@@ -1,0 +1,12 @@
+{
+  "formato": 1,
+  "id": "por-do-sol",
+  "tipo": "moldura",
+  "nome": "Pôr do sol",
+  "autor": "Agent Hub",
+  "descricao": "Moldura em degradê de laranja, rosa e roxo, com brilho e animação.",
+  "versao": "1.0.0",
+  "cores": ["#FF8A3D", "#FF4F7B", "#9B5CFF"],
+  "animada": true,
+  "brilho": true
+}

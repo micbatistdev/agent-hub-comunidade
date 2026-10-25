@@ -1,0 +1,85 @@
+{
+  "formato": 1,
+  "pacotes": [
+    {
+      "formato": 1,
+      "id": "aurora-boreal",
+      "tipo": "tema",
+      "nome": "Aurora boreal",
+      "autor": "Agent Hub",
+      "descricao": "Tema escuro com o verde e o azul das noites do norte.",
+      "versao": "1.0.0",
+      "paleta": {
+        "scheme": "dark",
+        "rail": "#0B1416",
+        "sidebar": "#101D20",
+        "main": "#14252A",
+        "surface": "#1A2F35",
+        "text": "#E6F4F1",
+        "textSecondary": "#A9C9C3",
+        "textMuted": "#6F938C",
+        "link": "#5CD6C0",
+        "accent": "#2BB673",
+        "success": "#3DDC84",
+        "warning": "#F2C14E",
+        "danger": "#F0616D",
+        "info": "#4FA8E8"
+      },
+      "arquivos": {}
+    },
+    {
+      "formato": 1,
+      "id": "constelacao",
+      "tipo": "fundo",
+      "nome": "Constelação",
+      "autor": "Agent Hub",
+      "descricao": "Céu noturno azul-escuro com estrelas ligadas por linhas finas.",
+      "versao": "1.0.0",
+      "previa": "previa.png",
+      "arquivo": "fundo.png",
+      "arquivos": {
+        "previa.png": {
+          "sha256": "428f409a1c7bcf858c563137dcc0f93fb4c7ae551861e61f3d40974bba21a4e7",
+          "tamanho": 91232
+        },
+        "fundo.png": {
+          "sha256": "7c5ad7b39c06c942bc4c0942054c0047af12ed940c1e2ce77fbf05a832a01793",
+          "tamanho": 1025511
+        }
+      }
+    },
+    {
+      "formato": 1,
+      "id": "gota-de-cristal",
+      "tipo": "som",
+      "nome": "Gota de cristal",
+      "autor": "Agent Hub",
+      "descricao": "Som de notificação curto e suave, como uma gota num copo de cristal.",
+      "versao": "1.0.0",
+      "arquivo": "som.wav",
+      "arquivos": {
+        "som.wav": {
+          "sha256": "1b9f37b485eeb6b67da7e68f827ec794e39f05e50b2ae0405abe029afb48ae37",
+          "tamanho": 48554
+        }
+      }
+    },
+    {
+      "formato": 1,
+      "id": "por-do-sol",
+      "tipo": "moldura",
+      "nome": "Pôr do sol",
+      "autor": "Agent Hub",
+      "descricao": "Moldura em degradê de laranja, rosa e roxo, com brilho e animação.",
+      "versao": "1.0.0",
+      "cores": [
+        "#FF8A3D",
+        "#FF4F7B",
+        "#9B5CFF"
+      ],
+      "animada": true,
+      "brilho": true,
+      "arquivos": {}
+    }
+  ]
+}

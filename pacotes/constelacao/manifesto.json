@@ -1,0 +1,11 @@
+{
+  "formato": 1,
+  "id": "constelacao",
+  "tipo": "fundo",
+  "nome": "Constelação",
+  "autor": "Agent Hub",
+  "descricao": "Céu noturno azul-escuro com estrelas ligadas por linhas finas.",
+  "versao": "1.0.0",
+  "previa": "previa.png",
+  "arquivo": "fundo.png"
+}

@@ -1,0 +1,25 @@
+{
+  "formato": 1,
+  "id": "aurora-boreal",
+  "tipo": "tema",
+  "nome": "Aurora boreal",
+  "autor": "Agent Hub",
+  "descricao": "Tema escuro com o verde e o azul das noites do norte.",
+  "versao": "1.0.0",
+  "paleta": {
+    "scheme": "dark",
+    "rail": "#0B1416",
+    "sidebar": "#101D20",
+    "main": "#14252A",
+    "surface": "#1A2F35",
+    "text": "#E6F4F1",
+    "textSecondary": "#A9C9C3",
+    "textMuted": "#6F938C",
+    "link": "#5CD6C0",
+    "accent": "#2BB673",
+    "success": "#3DDC84",
+    "warning": "#F2C14E",
+    "danger": "#F0616D",
+    "info": "#4FA8E8"
+  }
+}
