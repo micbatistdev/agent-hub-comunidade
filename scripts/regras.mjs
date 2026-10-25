@@ -1,5 +1,5 @@
 // Regras de um pacote da comunidade do Agent Hub.
-// As mesmas regras ficam no app (src/main/community.ts do repositório agent-hub):
+// As mesmas regras ficam no app (src/main/communityRules.ts do repositório agent-hub):
 // se mudar aqui, mude lá também. Pacotes são só dados (cores e mídia), nunca código.
 
 export const FORMATO = 1
