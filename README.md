@@ -1,6 +1,6 @@
 # Comunidade do Agent Hub
 
-Personalizações feitas pela comunidade para o [Agent Hub](https://github.com/micbatistdev/agent-hub): **temas**, **planos de fundo**, **molduras** e **sons de notificação**. Funciona como nos programas de teclados mecânicos: você abre a loja dentro do app, escolhe e aplica com um clique.
+Personalizações feitas pela comunidade para o **Agent Hub**, o app desktop que coordena projetos com vários agentes de IA: **temas**, **planos de fundo**, **molduras** e **sons de notificação**. Funciona como nos programas de teclados mecânicos: você abre a loja dentro do app, escolhe e aplica com um clique.
 
 ## Como baixar
 
@@ -69,7 +69,7 @@ As cores são sempre hexadecimais (`#RGB`, `#RRGGBB` ou `#RRGGBBAA`). A pasta n�
 
 ## Para quem mantém o repositório
 
-- `scripts/regras.mjs`: as regras acima. As mesmas regras ficam no app (`src/main/community.ts`); se mudar uma, mude a outra.
+- `scripts/regras.mjs`: as regras acima. As mesmas regras ficam no app (`src/main/community.ts`, no repositório privado do Agent Hub); se mudar uma, mude a outra.
 - `node scripts/gerar-indice.mjs --conferir`: confere todos os pacotes.
 - `node scripts/gerar-indice.mjs`: confere e grava o `indice.json`, o catálogo que o app lê.
 - A verificação automática (`.github/workflows/catalogo.yml`) confere cada proposta (e recusa mudanças fora de `pacotes/`). Depois da aprovação, ela regrava o `indice.json`.
