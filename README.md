@@ -14,8 +14,9 @@ No Vibe Code Recreative: **Configurações → Comunidade**. Escolha um pacote e
 | `fundo` | uma imagem (PNG, JPEG, WebP, GIF) ou um vídeo (MP4, WebM), até 25 MB |
 | `moldura` | um degradê (de 2 a 6 cores) ou uma imagem (PNG, WebP, GIF), até 5 MB |
 | `som` | um som de notificação (MP3, WAV, OGG, M4A), até 5 MB |
+| `skin` | uma skin do programa: layout, estilo (CSS conferido), imagens e, opcionais, tema, molduras, ícone, estilo pronto e abertura (veja abaixo) |
 
-**Pacotes são só dados: cores e mídia, nunca código.** Aberturas, scripts, páginas e executáveis não são aceitos. O app confere cada arquivo (tamanho, formato e o SHA-256 do catálogo) antes de usar.
+**Pacotes são só dados: cores, mídia e, nas skins, estilo CSS conferido; nunca código.** Scripts, páginas (HTML) e executáveis não são aceitos. O app confere cada arquivo (tamanho, formato e o SHA-256 do catálogo) antes de usar.
 
 ## Como publicar
 
@@ -66,6 +67,48 @@ pacotes/
 | `paleta` | tema: `scheme` (`dark` ou `light`) e as cores `rail`, `sidebar`, `main`, `surface`, `text`, `textSecondary`, `textMuted`, `link`, `accent`, `success`, `warning`, `danger`, `info`; opcionais: `overlay`, `titlebar`, `accentContrast`, `code`, `scrollbar` e `glass` |
 
 As cores são sempre hexadecimais (`#RGB`, `#RRGGBB` ou `#RRGGBBAA`). A pasta não pode ter arquivos que o manifesto não cita.
+
+## Skins do programa (`tipo: "skin"`)
+
+Uma skin muda o layout inteiro do app. Ela também é só dados: o app traz os arranjos de layout prontos e a skin escolhe um pelo nome; o resto é estilo (CSS conferido), imagens e, se quiser, tema, molduras, ícone, estilo pronto e abertura. Quem desinstala a skin não fica com nada dela no programa.
+
+```json
+{
+  "formato": 1,
+  "id": "minha-skin",
+  "tipo": "skin",
+  "nome": "Minha skin",
+  "autor": "Seu nome",
+  "descricao": "Barra no topo e balões dourados.",
+  "versao": "1.0.0",
+  "previa": "previa.png",
+  "layout": "topo",
+  "caracteristicas": { "mensagensSemAvatar": true },
+  "estilo": "estilo.css",
+  "imagens": ["brilho.png", "simbolo.png"],
+  "paleta": { "scheme": "dark", "rail": "#010A13", "...": "as cores de um tema" },
+  "molduras": [{ "id": "ouro", "nome": "Ouro", "arquivo": "moldura-ouro.png" }],
+  "molduraPadrao": "ouro",
+  "icone": "icone.ico",
+  "estiloPronto": { "destaque": "#C8AA6E", "escurecer": 0, "opacidade": 100, "desfoque": 0, "cores": ["#010A13", "#0A1428", "#7A5F2C", "#C8AA6E"] },
+  "abertura": { "estilo": "abertura.css", "simbolo": "simbolo.png", "titulo": "Carregando" }
+}
+```
+
+| Campo | Regra |
+|---|---|
+| `id` | até 40 caracteres |
+| `layout` | obrigatório: `classico` (projetos, salas, conversa e detalhes lado a lado), `foco` (só a conversa), `coluna` (uma coluna à esquerda), `editor` (como um editor de código) ou `topo` (barra no topo e painel à direita) |
+| `caracteristicas` | opcional, `true` ou `false`: `listasDeConversa` (prévia e hora nas listas, como num app de mensagens), `mensagensSemAvatar`, `inicioNoLayout` (a tela inicial fica dentro do layout) |
+| `estilo` | obrigatório: um `.css` de até 256 KB (veja as regras abaixo) |
+| `imagens` | opcional: até 40 imagens (PNG, JPEG, WebP, GIF, até 5 MB cada), usadas no estilo e na abertura |
+| `paleta` | opcional: o tema da skin, como num pacote `tema`; o app veste junto com a skin |
+| `molduras`, `molduraPadrao` | opcional: até 12 molduras (imagem ou degradê, como num pacote `moldura`, com `id` e `nome`); a padrão vai nos avatares de quem não escolheu nenhuma |
+| `icone` | opcional: o ícone do programa (`.ico`, até 1 MB), vestido junto com a skin |
+| `estiloPronto` | opcional (precisa da `paleta`): aparece em Estilos prontos. `fundo` (um arquivo como o de um pacote `fundo`), `destaque` (`#RRGGBB`), `escurecer` e `opacidade` (0 a 100), `desfoque` (0 a 20) e `cores` (4 cores para a miniatura) |
+| `abertura` | opcional: a abertura do app com a skin vestida. `estilo` (`.css`, com as mesmas regras), `simbolo` (uma das `imagens`) e `titulo` (até 40). O HTML é sempre o do app; o estilo age em `#splash`, `.deco-1` a `.deco-6`, `.center`, `.mark`, `.title`, `.progress span` (largura pela variável `--progress`), `.step`, `.slow` e `.version` |
+
+**Regras do estilo** (o app confere de novo antes de usar): nada de `@import`; nada de barra invertida (escapes); `url()` só para as imagens do próprio pacote, escritas como `url(pacote:brilho.png)`, ou imagens embutidas (`data:image/...`); nada de `expression`, `behavior`, `-moz-binding` ou `javascript:`. O estilo age nas classes estáveis do app (`hf-<Componente>__<classe>`) e nos atributos `data-*`, sempre por baixo de `[data-skin='<id>']`. A soma de todos os arquivos de uma skin vai até 60 MB.
 
 ## Para quem mantém o repositório
 

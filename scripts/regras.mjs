@@ -1,17 +1,22 @@
 // Regras de um pacote da comunidade do Agent Hub.
 // As mesmas regras ficam no app (src/main/communityRules.ts do repositório agent-hub):
-// se mudar aqui, mude lá também. Pacotes são só dados (cores e mídia), nunca código.
+// se mudar aqui, mude lá também. Pacotes são só dados (cores, mídia e, nas skins, estilo CSS
+// conferido), nunca código.
 
 export const FORMATO = 1
 
-export const TIPOS = ['tema', 'fundo', 'moldura', 'som']
+export const TIPOS = ['tema', 'fundo', 'moldura', 'som', 'skin']
 
 /** Tamanho máximo de cada arquivo (o envio pela página do GitHub aceita até 25 MB). */
 export const LIMITES = {
   previa: 1 * 1024 * 1024,
   fundo: 25 * 1024 * 1024,
   moldura: 5 * 1024 * 1024,
-  som: 5 * 1024 * 1024
+  som: 5 * 1024 * 1024,
+  // Arquivos de uma skin (etapa 125 do app).
+  estilo: 256 * 1024,
+  imagem: 5 * 1024 * 1024,
+  icone: 1 * 1024 * 1024
 }
 
 /** Extensões aceitas por tipo de arquivo. */
@@ -19,14 +24,17 @@ export const EXTENSOES = {
   previa: ['png', 'jpg', 'webp', 'gif'],
   fundo: ['png', 'jpg', 'webp', 'gif', 'mp4', 'webm'],
   moldura: ['png', 'webp', 'gif'],
-  som: ['mp3', 'wav', 'ogg', 'm4a']
+  som: ['mp3', 'wav', 'ogg', 'm4a'],
+  estilo: ['css'],
+  imagem: ['png', 'jpg', 'webp', 'gif'],
+  icone: ['ico']
 }
 
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const VERSAO = /^\d{1,3}\.\d{1,3}\.\d{1,3}$/
 const COR = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/
 const COR6 = /^#[0-9a-fA-F]{6}$/
-const ARQUIVO = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(png|jpg|webp|gif|mp4|webm|mp3|wav|ogg|m4a)$/
+const ARQUIVO = /^[a-z0-9]+(?:-[a-z0-9]+)*\.(png|jpg|webp|gif|mp4|webm|mp3|wav|ogg|m4a|css|ico)$/
 const CONTROLE = /[\u0000-\u001f\u007f]/
 
 /** Cores obrigatórias e opcionais de um tema (as mesmas do ThemePalette do app). */
@@ -85,6 +93,9 @@ export function validarManifesto(m, pasta) {
       const conhecidas = new Set(['scheme', 'glass', ...CORES_OBRIGATORIAS, ...CORES_OPCIONAIS])
       for (const k of Object.keys(p)) if (!conhecidas.has(k)) erros.push(`"paleta.${k}" não é um campo conhecido`)
     }
+  } else if (m.tipo === 'skin') {
+    for (const k of CAMPOS_DA_SKIN) permitidos.add(k)
+    validarSkin(m, erros, arquivos)
   } else if (m.tipo === 'fundo' || m.tipo === 'som') {
     permitidos.add('arquivo')
     nomeDeArquivo(m.arquivo, 'arquivo', m.tipo, erros)
@@ -102,7 +113,138 @@ export function validarManifesto(m, pasta) {
     if (m.brilho !== undefined && typeof m.brilho !== 'boolean') erros.push('"brilho" precisa ser true ou false')
   }
   for (const k of Object.keys(m)) if (!permitidos.has(k)) erros.push(`"${k}" não é um campo conhecido`)
+  const vistos = new Set()
+  for (const a of arquivos) {
+    if (vistos.has(a.arquivo)) erros.push(`"${a.arquivo}" aparece duas vezes no manifesto`)
+    vistos.add(a.arquivo)
+  }
   return { erros, arquivos }
+}
+
+// --- Skin do programa (etapa 125 do app) -------------------------------------------------------
+// Uma skin é só dados: o arranjo de layout (código do app, escolhido pelo nome), as
+// características, o estilo (CSS conferido), imagens e, opcionais, o tema, as molduras, o ícone do
+// programa (.ico), o estilo pronto e a abertura. Nada de script nem HTML.
+
+export const ARRANJOS = ['classico', 'foco', 'coluna', 'editor', 'topo']
+export const CARACTERISTICAS = ['listasDeConversa', 'mensagensSemAvatar', 'inicioNoLayout']
+const CAMPOS_DA_SKIN = ['layout', 'caracteristicas', 'estilo', 'imagens', 'paleta', 'molduras', 'molduraPadrao', 'icone', 'estiloPronto', 'abertura']
+/** Soma de todos os arquivos de uma skin. */
+export const LIMITE_DA_SKIN = 60 * 1024 * 1024
+
+const objeto = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
+const porcento = (v, max = 100) => v === undefined || (Number.isInteger(v) && v >= 0 && v <= max)
+
+function validarPaleta(p, erros) {
+  if (!objeto(p)) return erros.push('"paleta" precisa ser um objeto com as cores')
+  if (p.scheme !== 'dark' && p.scheme !== 'light') erros.push('"paleta.scheme" precisa ser "dark" ou "light"')
+  for (const c of CORES_OBRIGATORIAS) if (typeof p[c] !== 'string' || !COR.test(p[c])) erros.push(`"paleta.${c}" precisa ser uma cor como #1E1F22`)
+  for (const c of CORES_OPCIONAIS) if (p[c] !== undefined && (typeof p[c] !== 'string' || !COR.test(p[c]))) erros.push(`"paleta.${c}" precisa ser uma cor como #1E1F22`)
+  if (p.glass !== undefined && typeof p.glass !== 'boolean') erros.push('"paleta.glass" precisa ser true ou false')
+  const conhecidas = new Set(['scheme', 'glass', ...CORES_OBRIGATORIAS, ...CORES_OPCIONAIS])
+  for (const k of Object.keys(p)) if (!conhecidas.has(k)) erros.push(`"paleta.${k}" não é um campo conhecido`)
+}
+
+function validarSkin(m, erros, arquivos) {
+  const arquivo = (valor, campo, tipo) => {
+    const antes = erros.length
+    nomeDeArquivo(valor, campo, tipo, erros)
+    if (erros.length === antes) arquivos.push({ arquivo: valor, tipo })
+  }
+  if (typeof m.id === 'string' && m.id.length > 40) erros.push('"id" de uma skin tem até 40 caracteres')
+  if (!ARRANJOS.includes(m.layout)) erros.push(`"layout" precisa ser um destes: ${ARRANJOS.join(', ')}`)
+  if (m.caracteristicas !== undefined) {
+    if (!objeto(m.caracteristicas)) erros.push('"caracteristicas" precisa ser um objeto')
+    else
+      for (const [k, v] of Object.entries(m.caracteristicas)) {
+        if (!CARACTERISTICAS.includes(k)) erros.push(`"caracteristicas.${k}" não é um campo conhecido (use ${CARACTERISTICAS.join(', ')})`)
+        else if (typeof v !== 'boolean') erros.push(`"caracteristicas.${k}" precisa ser true ou false`)
+      }
+  }
+  arquivo(m.estilo, 'estilo', 'estilo')
+  const imagens = new Set()
+  if (m.imagens !== undefined) {
+    if (!Array.isArray(m.imagens) || m.imagens.length > 40) erros.push('"imagens" precisa ser uma lista de até 40 arquivos')
+    else
+      for (const nome of m.imagens) {
+        arquivo(nome, 'imagens', 'imagem')
+        imagens.add(nome)
+      }
+  }
+  if (m.paleta !== undefined) validarPaleta(m.paleta, erros)
+  const molduras = new Set()
+  if (m.molduras !== undefined) {
+    if (!Array.isArray(m.molduras) || m.molduras.length > 12) erros.push('"molduras" precisa ser uma lista de até 12')
+    else
+      m.molduras.forEach((f, i) => {
+        const onde = (campo) => `"molduras[${i}]${campo ? '.' + campo : ''}"`
+        if (!objeto(f)) return erros.push(`${onde()} precisa ser um objeto`)
+        if (typeof f.id !== 'string' || !ID.test(f.id) || f.id.length > 24) erros.push(`${onde('id')} inválido`)
+        else if (molduras.has(f.id)) erros.push(`${onde('id')} repetido`)
+        else molduras.add(f.id)
+        texto(f.nome, `molduras[${i}].nome`, 40, erros)
+        for (const k of Object.keys(f)) if (!['id', 'nome', 'arquivo', 'cores', 'animada', 'brilho'].includes(k)) erros.push(`${onde(k)} não é um campo conhecido`)
+        if (f.arquivo !== undefined) {
+          if (f.cores !== undefined) erros.push(`${onde()} usa "arquivo" ou "cores", não os dois`)
+          arquivo(f.arquivo, `molduras[${i}].arquivo`, 'moldura')
+        } else if (!Array.isArray(f.cores) || f.cores.length < 2 || f.cores.length > 6 || !f.cores.every((c) => typeof c === 'string' && COR6.test(c))) {
+          erros.push(`${onde('cores')} precisa ter de 2 a 6 cores #RRGGBB`)
+        }
+        if (f.animada !== undefined && typeof f.animada !== 'boolean') erros.push(`${onde('animada')} precisa ser true ou false`)
+        if (f.brilho !== undefined && typeof f.brilho !== 'boolean') erros.push(`${onde('brilho')} precisa ser true ou false`)
+      })
+  }
+  if (m.molduraPadrao !== undefined && !molduras.has(m.molduraPadrao)) erros.push('"molduraPadrao" precisa ser o id de uma das "molduras"')
+  if (m.icone !== undefined) arquivo(m.icone, 'icone', 'icone')
+  if (m.estiloPronto !== undefined) {
+    const e = m.estiloPronto
+    if (!objeto(e)) erros.push('"estiloPronto" precisa ser um objeto')
+    else {
+      if (m.paleta === undefined) erros.push('"estiloPronto" precisa da "paleta" da skin')
+      for (const k of Object.keys(e)) if (!['fundo', 'destaque', 'escurecer', 'opacidade', 'desfoque', 'cores'].includes(k)) erros.push(`"estiloPronto.${k}" não é um campo conhecido`)
+      if (e.fundo !== undefined) arquivo(e.fundo, 'estiloPronto.fundo', 'fundo')
+      if (e.destaque !== undefined && (typeof e.destaque !== 'string' || !COR6.test(e.destaque))) erros.push('"estiloPronto.destaque" precisa ser #RRGGBB')
+      if (!porcento(e.escurecer) || !porcento(e.opacidade) || !porcento(e.desfoque, 20)) erros.push('"estiloPronto": escurecer e opacidade vão de 0 a 100, desfoque de 0 a 20')
+      if (e.cores !== undefined && (!Array.isArray(e.cores) || e.cores.length !== 4 || !e.cores.every((c) => typeof c === 'string' && COR6.test(c))))
+        erros.push('"estiloPronto.cores" precisa ter 4 cores #RRGGBB')
+    }
+  }
+  if (m.abertura !== undefined) {
+    const a = m.abertura
+    if (!objeto(a)) erros.push('"abertura" precisa ser um objeto')
+    else {
+      for (const k of Object.keys(a)) if (!['estilo', 'simbolo', 'titulo'].includes(k)) erros.push(`"abertura.${k}" não é um campo conhecido`)
+      arquivo(a.estilo, 'abertura.estilo', 'estilo')
+      if (a.simbolo !== undefined && !imagens.has(a.simbolo)) erros.push('"abertura.simbolo" precisa ser uma das "imagens"')
+      if (a.titulo !== undefined) texto(a.titulo, 'abertura.titulo', 40, erros)
+    }
+  }
+}
+
+/**
+ * Confere um estilo (.css) de skin como o app confere antes de usar: até 256 KB; sem @import; sem
+ * escapes com barra invertida; url() só para as imagens do próprio pacote (url(pacote:nome.png)) ou
+ * embutidas (data:image/); nada de expression, behavior, -moz-binding ou javascript:; nada que
+ * feche a tag de estilo. Devolve o problema encontrado, ou undefined se estiver tudo certo.
+ */
+export function problemaNoEstilo(css, imagens) {
+  if (css.length > LIMITES.estilo) return 'passa do tamanho máximo'
+  if (/\/\*(?![\s\S]*?\*\/)/.test(css)) return 'há um comentário sem fim'
+  const limpo = css.replace(/\/\*[\s\S]*?\*\//g, '')
+  if (limpo.includes(String.fromCharCode(92))) return 'usa escapes com barra invertida'
+  const minusculo = limpo.toLowerCase()
+  if (/@import\b/.test(minusculo)) return 'usa @import'
+  if (/<\s*\/?\s*(style|script)/.test(css.toLowerCase())) return 'tenta fechar a tag de estilo'
+  if (/expression\s*\(|behavior\s*:|-moz-binding|javascript\s*:/.test(minusculo)) return 'tenta rodar código'
+  const enderecos = [...limpo.matchAll(/url\s*\(\s*(['"]?)([^'")]*)\1\s*\)/gi)]
+  if (enderecos.length !== (minusculo.match(/url\s*\(/g) ?? []).length) return 'tem um url() que não foi possível conferir'
+  for (const e of enderecos) {
+    const alvo = e[2].trim()
+    if (/^data:image\//i.test(alvo)) continue
+    const nome = /^pacote:([a-z0-9-]+\.[a-z0-9]+)$/.exec(alvo)
+    if (!nome || !imagens.includes(nome[1])) return `aponta para fora do pacote (${alvo.slice(0, 60)}); use url(pacote:nome.png) com uma das "imagens"`
+  }
+  return undefined
 }
 
 /** Confere se o conteúdo do arquivo é mesmo do formato da extensão (assinatura dos primeiros bytes). */
@@ -118,6 +260,11 @@ export function conteudoConfere(ext, b) {
     case 'm4a': return ascii(4, 8) === 'ftyp'
     case 'webm': return b[0] === 0x1a && b[1] === 0x45 && b[2] === 0xdf && b[3] === 0xa3
     case 'ogg': return ascii(0, 4) === 'OggS'
+    case 'css': {
+      const texto = b.toString('utf8')
+      return !texto.includes('\u0000') && !texto.includes('\ufffd') && Buffer.from(texto, 'utf8').equals(b)
+    }
+    case 'ico': return b.length > 6 && b[0] === 0 && b[1] === 0 && b[2] === 1 && b[3] === 0
     case 'mp3': return ascii(0, 3) === 'ID3' || (b[0] === 0xff && (b[1] & 0xe0) === 0xe0)
     default: return false
   }

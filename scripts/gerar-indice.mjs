@@ -5,7 +5,7 @@
 import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { FORMATO, LIMITES, conteudoConfere, validarManifesto } from './regras.mjs'
+import { FORMATO, LIMITE_DA_SKIN, LIMITES, conteudoConfere, problemaNoEstilo, validarManifesto } from './regras.mjs'
 
 const raiz = join(import.meta.dirname, '..')
 const pastaPacotes = join(raiz, 'pacotes')
@@ -44,8 +44,15 @@ for (const pasta of readdirSync(pastaPacotes).sort()) {
     const bytes = readFileSync(caminho)
     if (bytes.length > LIMITES[tipo]) erros.push(`${arquivo} tem ${(bytes.length / 1048576).toFixed(1)} MB (máximo de ${LIMITES[tipo] / 1048576} MB)`)
     if (!conteudoConfere(arquivo.split('.').pop(), bytes)) erros.push(`${arquivo} não é de verdade um arquivo .${arquivo.split('.').pop()}`)
+    // Estilo de uma skin: as mesmas regras que o app confere antes de usar.
+    if (tipo === 'estilo' && conteudoConfere('css', bytes)) {
+      const problema = problemaNoEstilo(bytes.toString('utf8'), manifesto.imagens ?? [])
+      if (problema) erros.push(arquivo + ': o estilo ' + problema)
+    }
     conferidos[arquivo] = { sha256: createHash('sha256').update(bytes).digest('hex'), tamanho: bytes.length }
   }
+  const soma = Object.values(conferidos).reduce((total, a) => total + a.tamanho, 0)
+  if (manifesto.tipo === 'skin' && soma > LIMITE_DA_SKIN) erros.push('a skin tem ' + (soma / 1048576).toFixed(1) + ' MB ao todo (máximo de ' + LIMITE_DA_SKIN / 1048576 + ' MB)')
   // Nada além do manifesto e dos arquivos citados nele.
   const usados = new Set(['manifesto.json', ...arquivos.map((a) => a.arquivo)])
   for (const sobra of readdirSync(dir)) if (!usados.has(sobra)) erros.push(`${sobra} não é usado pelo manifesto (apague ou cite no manifesto)`)
