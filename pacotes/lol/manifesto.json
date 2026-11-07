@@ -1,0 +1,200 @@
+{
+  "formato": 1,
+  "id": "lol",
+  "tipo": "skin",
+  "nome": "League of Legends",
+  "autor": "Hub Flow",
+  "descricao": "Como o cliente do LoL: navegação no topo com o botão dourado de novo projeto, os agentes à direita como o painel de amigos e a conversa em molduras douradas sobre o azul-noite.",
+  "versao": "1.0.0",
+  "layout": "topo",
+  "caracteristicas": {
+    "mensagensSemAvatar": true,
+    "inicioNoLayout": true
+  },
+  "estilo": "estilo.css",
+  "imagens": [
+    "simbolo.png"
+  ],
+  "paleta": {
+    "scheme": "dark",
+    "rail": "#010A13",
+    "sidebar": "#010A13",
+    "main": "#091428",
+    "chat": "#0A1428",
+    "surface": "#1E2328",
+    "overlay": "#010A13",
+    "titlebar": "#010A13",
+    "text": "#F0E6D2",
+    "textSecondary": "#CDBE91",
+    "textMuted": "#A09B8C",
+    "link": "#0AC8B9",
+    "accent": "#C8AA6E",
+    "accentContrast": "#010A13",
+    "success": "#0ACE83",
+    "warning": "#E8A33A",
+    "danger": "#E84057",
+    "info": "#0AC8B9",
+    "code": "#010A13",
+    "scrollbar": "#463714",
+    "ajustes": {
+      "bubble-out-bg": "#7A5F2C",
+      "bubble-in-bg": "#1E2328",
+      "bg-modifier-hover": "#F0E6D20D",
+      "bg-modifier-selected": "#C8AA6E1F",
+      "bg-modifier-active": "#C8AA6E2E",
+      "border-subtle": "#785A288C",
+      "border-strong": "#785A28",
+      "mention-bg": "#0AC8B92E",
+      "mention-text": "#CDFAFA",
+      "focus-ring": "#0AC8B9",
+      "avatar-1": "#0397AB",
+      "avatar-2": "#785A28",
+      "avatar-3": "#005A82",
+      "avatar-4": "#9E2A3A",
+      "avatar-5": "#0A7D6C",
+      "avatar-6": "#5B3A8C"
+    }
+  },
+  "molduras": [
+    {
+      "id": "hextech",
+      "nome": "Hextech",
+      "cores": [
+        "#785A28",
+        "#C8AA6E",
+        "#F0E6D2",
+        "#C8AA6E",
+        "#463714",
+        "#0AC8B9"
+      ],
+      "brilho": true
+    },
+    {
+      "id": "elo-ferro",
+      "nome": "Elo Ferro",
+      "cores": [
+        "#4A4643",
+        "#8C8580",
+        "#5C5652",
+        "#A39B94"
+      ]
+    },
+    {
+      "id": "elo-bronze",
+      "nome": "Elo Bronze",
+      "cores": [
+        "#6B3D22",
+        "#C98A5A",
+        "#8A5532",
+        "#E0A878"
+      ]
+    },
+    {
+      "id": "elo-prata",
+      "nome": "Elo Prata",
+      "cores": [
+        "#6F7A85",
+        "#DFE6EE",
+        "#8D99A6",
+        "#FFFFFF"
+      ]
+    },
+    {
+      "id": "elo-ouro",
+      "nome": "Elo Ouro",
+      "cores": [
+        "#8A6212",
+        "#F7D774",
+        "#B8860B",
+        "#FFF3B0"
+      ]
+    },
+    {
+      "id": "elo-platina",
+      "nome": "Elo Platina",
+      "cores": [
+        "#2C7A7B",
+        "#9DE5DF",
+        "#3C9F9A",
+        "#D8FFF9"
+      ]
+    },
+    {
+      "id": "elo-esmeralda",
+      "nome": "Elo Esmeralda",
+      "cores": [
+        "#0B6B45",
+        "#3EE08F",
+        "#11915C",
+        "#B6FFD9"
+      ],
+      "brilho": true
+    },
+    {
+      "id": "elo-diamante",
+      "nome": "Elo Diamante",
+      "cores": [
+        "#3A4FB8",
+        "#9FB4FF",
+        "#5B6EE8",
+        "#E3E9FF"
+      ],
+      "brilho": true
+    },
+    {
+      "id": "elo-mestre",
+      "nome": "Elo Mestre",
+      "cores": [
+        "#6B2D9B",
+        "#D79CFF",
+        "#8E3FC9",
+        "#F3DCFF"
+      ],
+      "brilho": true
+    },
+    {
+      "id": "elo-grao-mestre",
+      "nome": "Elo Grão-Mestre",
+      "cores": [
+        "#8F1D2C",
+        "#FF6B6B",
+        "#B3243A",
+        "#FFD0D0"
+      ],
+      "animada": true,
+      "brilho": true
+    },
+    {
+      "id": "elo-desafiante",
+      "nome": "Elo Desafiante",
+      "cores": [
+        "#1F5FA8",
+        "#F4D27A",
+        "#6FC3FF",
+        "#FFF4C2",
+        "#C8AA6E"
+      ],
+      "animada": true,
+      "brilho": true
+    }
+  ],
+  "molduraPadrao": "hextech",
+  "icone": "icone.ico",
+  "estiloPronto": {
+    "escurecer": 0,
+    "opacidade": 100,
+    "desfoque": 0,
+    "cores": [
+      "#010A13",
+      "#0A1428",
+      "#7A5F2C",
+      "#C8AA6E"
+    ],
+    "descricao": "O visual do cliente do LoL: azul-noite, molduras douradas hextech e o painel de amigos à direita"
+  },
+  "abertura": {
+    "estilo": "abertura.css",
+    "simbolo": "simbolo.png",
+    "titulo": "Carregando"
+  }
+}

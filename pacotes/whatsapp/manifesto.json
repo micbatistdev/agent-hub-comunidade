@@ -1,0 +1,105 @@
+{
+  "formato": 1,
+  "id": "whatsapp",
+  "tipo": "skin",
+  "nome": "WhatsApp",
+  "autor": "Hub Flow",
+  "descricao": "Faixa de ícones com os projetos em círculos, a lista de conversas com prévia e hora, a conversa em balões sobre o fundo bege e a barra de digitar como a do WhatsApp Desktop.",
+  "versao": "1.0.0",
+  "layout": "classico",
+  "caracteristicas": {
+    "listasDeConversa": true
+  },
+  "estilo": "estilo.css",
+  "paleta": {
+    "scheme": "light",
+    "rail": "#F0F2F5",
+    "sidebar": "#FFFFFF",
+    "main": "#FFFFFF",
+    "chat": "#EFEAE2",
+    "surface": "#FFFFFF",
+    "overlay": "#FFFFFF",
+    "titlebar": "#F0F2F5",
+    "text": "#111B21",
+    "textSecondary": "#3B4A54",
+    "textMuted": "#54656F",
+    "link": "#027EB5",
+    "accent": "#008069",
+    "success": "#008069",
+    "warning": "#B5730B",
+    "danger": "#D2153F",
+    "info": "#027EB5",
+    "code": "#F0F2F5",
+    "scrollbar": "#C7CCCF",
+    "ajustes": {
+      "bubble-out-bg": "#D9FDD3",
+      "bubble-in-bg": "#FFFFFF",
+      "bg-modifier-hover": "#0B141A0A",
+      "bg-modifier-selected": "#0B141A12",
+      "border-subtle": "#0B141A17",
+      "mention-bg": "#00A88429",
+      "mention-text": "#027A62"
+    }
+  },
+  "estiloPronto": {
+    "escurecer": 0,
+    "opacidade": 100,
+    "desfoque": 0,
+    "cores": [
+      "#F0F2F5",
+      "#EFEAE2",
+      "#D9FDD3",
+      "#008069"
+    ],
+    "descricao": "O visual do WhatsApp Desktop claro: lista de conversas, balões verdes e o fundo bege"
+  },
+  "outrosTemas": [
+    {
+      "id": "escuro",
+      "nome": "WhatsApp Escuro",
+      "paleta": {
+        "scheme": "dark",
+        "rail": "#202C33",
+        "sidebar": "#111B21",
+        "main": "#111B21",
+        "chat": "#0B141A",
+        "surface": "#202C33",
+        "overlay": "#233138",
+        "titlebar": "#202C33",
+        "text": "#E9EDEF",
+        "textSecondary": "#D1D7DB",
+        "textMuted": "#8696A0",
+        "link": "#53BDEB",
+        "accent": "#00A884",
+        "accentContrast": "#111B21",
+        "success": "#00A884",
+        "warning": "#FFB02E",
+        "danger": "#F15C6D",
+        "info": "#53BDEB",
+        "code": "#0B141A",
+        "scrollbar": "#374248",
+        "ajustes": {
+          "bubble-out-bg": "#005C4B",
+          "bubble-in-bg": "#202C33",
+          "bg-modifier-hover": "#E9EDEF0D",
+          "bg-modifier-selected": "#E9EDEF17",
+          "border-subtle": "#E9EDEF14",
+          "mention-bg": "#00A88438",
+          "mention-text": "#25D366"
+        }
+      },
+      "estiloPronto": {
+        "escurecer": 0,
+        "opacidade": 100,
+        "desfoque": 0,
+        "cores": [
+          "#202C33",
+          "#0B141A",
+          "#005C4B",
+          "#00A884"
+        ],
+        "descricao": "O visual do WhatsApp Desktop no modo escuro: grafite azulado e balões verde-petróleo"
+      }
+    }
+  ]
+}

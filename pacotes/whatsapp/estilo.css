@@ -1,0 +1,926 @@
+/*
+ * Estilo da skin "whatsapp" do Hub Flow, gerado por scripts/compilar-skins.mjs a partir de
+ * comunidade/fonte/whatsapp/ (não edite aqui: edite a fonte e rode o script).
+ */
+
+/* ==== tokens.css ==== */
+:root[data-skin='whatsapp'] {
+  /* Skin WhatsApp (etapa 107, ADR-098): medidas do WhatsApp Desktop/Web. */
+  --wa-nav-width: 64px;
+  --wa-nav-item-size: 40px;
+  --wa-header-height: 60px;
+  --wa-header-avatar: 40px;
+  --wa-row-height: 72px;
+  --wa-row-avatar: 49px;
+  --wa-list-title-size: 22px;
+  --wa-name-size: 17px;
+  --wa-preview-size: 14px;
+  --wa-message-size: 14.2px;
+  --wa-meta-size: 11px;
+  --wa-bubble-radius: 7.5px;
+  --wa-bubble-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+  --wa-composer-height: 62px;
+  --wa-input-radius: 8px;
+  --wa-chip-height: 32px;
+  /* Etapa 108: menus, janelas e botões. */
+  --wa-menu-radius: 12px;
+  --wa-menu-item-radius: 8px;
+  --wa-menu-item-size: 14.5px;
+  --wa-menu-shadow: 0 2px 5px rgba(11, 20, 26, 0.26), 0 2px 10px rgba(11, 20, 26, 0.16);
+  --wa-dialog-radius: 20px;
+  /* Abas do painel da direita: as 6 cabem com o título na largura padrão do painel. */
+  --wa-tab-size: 32px;
+  /* Etapa 109: tela inicial (coluna e faixa verde da tela de boas-vindas), Agenda e busca. */
+  --wa-intro-width: 640px;
+  --wa-intro-bar: 6px;
+  --wa-intro-title-size: 32px;
+  --wa-search-height: 36px;
+  /* Etapa 111: os tamanhos que a skin usava soltos, agora em token (mesmo valor). */
+  --wa-subtitle-size: 13px;
+  --wa-input-size: 15px;
+  --wa-small-size: 12.5px;
+  --wa-font: 'Segoe UI', 'Helvetica Neue', Helvetica, 'Lucida Grande', Arial, Ubuntu, Cantarell, 'Fira Sans', sans-serif;
+}
+
+/* A skin WhatsApp troca as medidas que os componentes já usam e a fonte (que vale também nas janelas). */
+
+:root[data-skin='whatsapp'] {
+  --rail-width: var(--wa-nav-width);
+  --rail-item-size: var(--wa-nav-item-size);
+  --header-height: var(--wa-header-height);
+  --font-sans: var(--wa-font);
+  --font-display: var(--wa-font);
+}
+
+/* ==== global.css ==== */
+:root[data-skin="whatsapp"] [role="menu"] {
+  border-color: transparent;
+  border-radius: var(--wa-menu-radius);
+  background: var(--bg-surface-overlay);
+  box-shadow: var(--wa-menu-shadow);
+}
+
+:root[data-skin="whatsapp"] [role="menu"] :is([role="menuitem"], [role="menuitemradio"], [role="menuitemcheckbox"]) {
+  border-radius: var(--wa-menu-item-radius);
+  font-size: var(--wa-menu-item-size);
+}
+
+/* ==== pacote.css ==== */
+/*
+ * O que o app enfeita em todas as skins e a WhatsApp desfaz (etapas 113 a 120). Até a etapa 125
+ * o app pulava a WhatsApp com :root:not([data-skin="whatsapp"]); com a skin fora do programa,
+ * o enfeite vale sempre e este pacote volta ao de antes. Estas regras vêm antes das outras do
+ * pacote, que ganham delas quando mexem na mesma coisa.
+ */
+
+/* O subtítulo do agente: a frase inteira do jeito do WhatsApp, sem cor por estado nem fonte de código. */
+[data-skin='whatsapp'] .hf-ChannelHeader__subtitleStatus[data-state] {
+  color: inherit;
+}
+
+[data-skin='whatsapp'] .hf-ChannelHeader__subtitleSep {
+  opacity: 1;
+}
+
+[data-skin='whatsapp'] .hf-ChannelHeader__subtitleModel {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* A barra de digitar é a do WhatsApp: sem a borda fina nem o halo do destaque ao escrever. */
+[data-skin='whatsapp'] .hf-Composer__composer {
+  box-shadow: none;
+}
+
+[data-skin='whatsapp'] .hf-Composer__composer:focus-within {
+  box-shadow: 0 0 0 1px var(--border-strong);
+}
+
+/* A conversa usa a largura toda, como o WhatsApp (sem a coluna de leitura da etapa 117). */
+[data-skin='whatsapp'] .hf-MessageList__item,
+[data-skin='whatsapp'] .hf-MessageList__welcome,
+[data-skin='whatsapp'] .hf-MessageList__clearedNotice,
+[data-skin='whatsapp'] .hf-Workspace__composerArea > * {
+  max-width: none;
+  margin-inline: 0;
+}
+
+/* A aba aberta do painel da direita fica com o visual da skin (sem o traço do destaque). */
+[data-skin='whatsapp'] .hf-DetailsPanel__tab[aria-selected='true'] {
+  color: var(--text-primary);
+  box-shadow: none;
+}
+
+[data-skin='whatsapp'] .hf-DetailsPanel__tab[aria-selected='true']:focus-visible {
+  box-shadow: var(--shadow-focus-inset);
+}
+
+/* O projeto aberto sem o halo e a sombra; a curva da Início fica ciano (o fundo não é o destaque). */
+[data-skin='whatsapp'] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button {
+  box-shadow: none;
+}
+
+:root:root[data-skin='whatsapp'] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button[data-variant='home'] svg {
+  --hub-mark-1: inherit;
+  --hub-mark-2: inherit;
+}
+
+/* ==== AgendaModal.module.css ==== */
+/*
+ * Skin WhatsApp (etapa 109, ADR-100): a lista de dias como uma conversa. O fundo da conversa,
+ * o dia numa pílula no meio (hoje em verde) e cada compromisso num balão branco, sem a faixa
+ * lateral. O formulário fica no branco, com os campos no cinza dos cabeçalhos.
+ */
+
+[data-skin="whatsapp"] .hf-AgendaModal__list {
+  padding: var(--space-3);
+  border-radius: var(--wa-menu-radius);
+  background: var(--bg-chat);
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__dayTitle {
+  display: table;
+  margin: 0 auto var(--space-2);
+  padding: 5px var(--space-3);
+  border-radius: var(--wa-bubble-radius);
+  background: var(--bubble-in-bg);
+  box-shadow: var(--wa-bubble-shadow);
+  color: var(--text-secondary);
+  font-size: var(--wa-small-size);
+  font-weight: var(--font-weight-regular);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__dayTitle[data-today] {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__item {
+  border: none;
+  border-left: none;
+  border-radius: var(--wa-bubble-radius);
+  background: var(--bubble-in-bg);
+  box-shadow: var(--wa-bubble-shadow);
+  color: var(--text-primary);
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__time {
+  color: var(--accent);
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__iconButton {
+  border-radius: 50%;
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__form {
+  border-radius: var(--wa-menu-radius);
+  background: var(--bg-surface-raised);
+  box-shadow: var(--wa-bubble-shadow);
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__formTitle {
+  color: var(--accent);
+  font-weight: var(--font-weight-regular);
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__field input,
+[data-skin="whatsapp"] .hf-AgendaModal__field select,
+[data-skin="whatsapp"] .hf-AgendaModal__field textarea {
+  border-radius: var(--wa-input-radius);
+}
+
+[data-skin="whatsapp"] .hf-AgendaModal__time {
+  min-width: 44px;
+  padding: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: inherit;
+  text-align: left;
+}
+
+/* ==== Button.module.css ==== */
+/* Skin WhatsApp (etapa 108, ADR-099): botões em pílula, como os do WhatsApp; o secundário
+   com borda fina e o texto no verde do destaque. */
+
+[data-skin="whatsapp"] .hf-Button__button {
+  border-radius: var(--radius-pill);
+}
+
+[data-skin="whatsapp"] .hf-Button__button[data-variant="secondary"] {
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--accent);
+}
+
+[data-skin="whatsapp"] .hf-Button__button[data-variant="secondary"]:hover {
+  background: var(--bg-modifier-hover);
+}
+
+/* ==== ChannelHeader.module.css ==== */
+/* ---- Skin WhatsApp (etapa 107, ADR-098): cabeçalho de 60 px, avatar de 40 px, nome e status
+   empilhados, no cinza dos cabeçalhos do WhatsApp ---- */
+
+[data-skin="whatsapp"] .hf-ChannelHeader__header {
+  gap: var(--space-3);
+  padding: 0 var(--space-2) 0 var(--space-4);
+  border-bottom: none;
+  box-shadow: none;
+  background: var(--bg-rail);
+}
+
+[data-skin="whatsapp"] .hf-ChannelHeader__titleBlock {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+[data-skin="whatsapp"] .hf-ChannelHeader__titleLine {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+[data-skin="whatsapp"] .hf-ChannelHeader__title {
+  overflow: hidden;
+  font-weight: var(--font-weight-regular);
+  text-overflow: ellipsis;
+}
+
+[data-skin="whatsapp"] .hf-ChannelHeader__divider {
+  display: none;
+}
+
+[data-skin="whatsapp"] .hf-ChannelHeader__subtitle {
+  flex: none;
+  font-size: var(--wa-subtitle-size);
+}
+
+[data-skin="whatsapp"] .hf-ChannelHeader__subtitle[data-typing] {
+  color: var(--accent);
+}
+
+/* Sala: o ícone num círculo de 40 px, como a foto de um grupo. */
+
+[data-skin="whatsapp"] .hf-ChannelHeader__icon {
+  box-sizing: border-box;
+  width: var(--wa-header-avatar);
+  height: var(--wa-header-avatar);
+  padding: 9px;
+  border-radius: 50%;
+  background: var(--bg-modifier-selected);
+}
+
+/* ==== Composer.module.css ==== */
+/* ---- Skin WhatsApp (etapa 107, ADR-098): o "+" e o microfone soltos na barra; o campo de texto
+   numa caixa arredondada clara, como o do WhatsApp Desktop ---- */
+
+[data-skin="whatsapp"] .hf-Composer__composer {
+  align-items: center;
+  padding: 0;
+  background: transparent;
+}
+
+[data-skin="whatsapp"] .hf-Composer__composer:focus-within {
+  box-shadow: none;
+}
+
+[data-skin="whatsapp"] .hf-Composer__attach,
+[data-skin="whatsapp"] .hf-Composer__send {
+  margin-top: 0;
+  color: var(--text-secondary);
+}
+
+[data-skin="whatsapp"] .hf-Composer__send:hover {
+  color: var(--text-primary);
+  background: var(--bg-modifier-hover);
+}
+
+[data-skin="whatsapp"] .hf-Composer__input {
+  padding: 9px var(--space-3);
+  border-radius: var(--wa-input-radius);
+  background: var(--bg-surface-overlay);
+  font-size: var(--wa-input-size);
+  line-height: 20px;
+}
+
+/* ==== ContextSidebar.module.css ==== */
+/* ---- Skin WhatsApp (etapa 107, ADR-098): a lista de conversas do WhatsApp Desktop ---- */
+
+[data-skin="whatsapp"] .hf-ContextSidebar__sidebar {
+  border-top-left-radius: 0;
+  border-right: 1px solid var(--border-subtle);
+}
+
+[data-skin="whatsapp"] .hf-ContextSidebar__header {
+  height: var(--wa-header-height);
+  padding: 0 var(--space-4) 0 var(--space-5);
+  border-bottom: none;
+}
+
+[data-skin="whatsapp"] .hf-ContextSidebar__headerTitle {
+  font-size: var(--wa-list-title-size);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Linhas de ponta a ponta, como no WhatsApp; títulos das seções pequenos, no verde do destaque. */
+
+[data-skin="whatsapp"] .hf-ContextSidebar__scroll {
+  padding: 0 0 var(--space-4);
+}
+
+[data-skin="whatsapp"] .hf-ContextSidebar__section + .hf-ContextSidebar__section {
+  margin-top: 0;
+}
+
+[data-skin="whatsapp"] .hf-ContextSidebar__sectionHeaderRow {
+  padding: var(--space-3) var(--space-4) var(--space-1) var(--space-5);
+}
+
+[data-skin="whatsapp"] .hf-ContextSidebar__sectionHeader {
+  color: var(--accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+[data-skin="whatsapp"] .hf-ContextSidebar__list {
+  gap: 0;
+  margin: 0;
+}
+
+/* O que não é conversa (equipes, tarefas, docs, atividade) mantém um recuo lateral. */
+
+[data-skin="whatsapp"] .hf-ContextSidebar__list > li:not(:has(> .hf-ContextSidebar__waRow)) {
+  padding-inline: var(--space-2);
+}
+
+/* ==== DetailsPanel.module.css ==== */
+/* ---- Skin WhatsApp (etapa 108, ADR-099): o painel da direita como o "Dados do contato" ---- */
+
+[data-skin="whatsapp"] .hf-DetailsPanel__header {
+  height: var(--wa-header-height);
+  padding: 0 var(--space-3);
+  border-bottom: none;
+  background: var(--bg-rail);
+}
+
+/* Na largura padrão do painel, o título e as 6 abas não cabem juntos: na skin WhatsApp o
+   cabeçalho mostra só as abas, espalhadas, com a aberta em verde. O título continua no
+   documento para os leitores de tela (escondido só da vista). */
+
+[data-skin="whatsapp"] .hf-DetailsPanel__tabs + .hf-DetailsPanel__headerTitle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+[data-skin="whatsapp"] .hf-DetailsPanel__tabs {
+  flex: 1;
+  justify-content: space-between;
+}
+
+[data-skin="whatsapp"] .hf-DetailsPanel__tab {
+  width: var(--wa-tab-size);
+  height: var(--wa-tab-size);
+  border-radius: 50%;
+  color: var(--text-secondary);
+}
+
+[data-skin="whatsapp"] .hf-DetailsPanel__tab[aria-selected="true"] {
+  color: var(--accent);
+}
+
+[data-skin="whatsapp"] .hf-DetailsPanel__groupTitle {
+  margin-left: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ==== GlobalRail.module.css ==== */
+/* ---- Skin WhatsApp (etapa 107, ADR-098): a faixa de ícones do WhatsApp Desktop ----
+   Ícones em círculos de 40 px, sem a pílula do Discord; o selecionado ganha um fundo cinza e os
+   projetos aparecem como círculos com as iniciais (como as Comunidades). Contadores em verde. */
+
+[data-skin="whatsapp"] .hf-GlobalRail__rail {
+  padding: var(--space-2) 0;
+  border-right: 1px solid var(--border-subtle);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__list {
+  gap: var(--space-1);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__pill {
+  display: none;
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__button {
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__button:hover {
+  border-radius: 50%;
+  background: var(--bg-modifier-hover);
+  color: var(--text-primary);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button {
+  border-radius: 50%;
+  background: var(--bg-modifier-selected);
+  color: var(--text-primary);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__button[data-variant="action"],
+[data-skin="whatsapp"] .hf-GlobalRail__button[data-variant="action"]:hover {
+  color: var(--text-secondary);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__button[data-variant="action"]:hover {
+  background: var(--bg-modifier-hover);
+}
+
+/* Projeto: círculo cheio com as iniciais; o aberto ganha o anel verde, como um status não visto. */
+
+[data-skin="whatsapp"] .hf-GlobalRail__button:has(.hf-GlobalRail__initials) {
+  background: var(--bg-modifier-selected);
+  color: var(--text-primary);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button:has(.hf-GlobalRail__initials) {
+  box-shadow:
+    0 0 0 2px var(--bg-rail),
+    0 0 0 4px var(--accent);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__initials {
+  font-size: var(--font-size-sm);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__badge {
+  top: -2px;
+  right: 8px;
+  bottom: auto;
+  border-color: var(--bg-rail);
+  background: var(--accent);
+}
+
+[data-skin="whatsapp"] .hf-GlobalRail__separator {
+  width: 24px;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+/* ==== MessageItem.module.css ==== */
+/* ---- Skin WhatsApp (etapa 107, ADR-098): balões do WhatsApp Desktop ----
+   Cantos de 7,5 px, sombra fina, letra de 14,2 px, hora de 11 px e o "rabinho" no primeiro balão
+   do grupo (um triângulo da cor do balão, no canto de quem fala). */
+
+[data-skin="whatsapp"] .hf-MessageItem__message {
+  padding-inline: 7% 7%;
+}
+
+[data-skin="whatsapp"] .hf-MessageItem__bubble {
+  position: relative;
+  padding: 6px 7px 8px 9px;
+  border-radius: var(--wa-bubble-radius);
+  box-shadow: var(--wa-bubble-shadow);
+  font-size: var(--wa-message-size);
+  line-height: 19px;
+}
+
+[data-skin="whatsapp"] .hf-MessageItem__bubble[data-media] {
+  padding: 3px;
+}
+
+[data-skin="whatsapp"] .hf-MessageItem__message[data-side="in"] .hf-MessageItem__bubble[data-start] {
+  border-top-left-radius: 0;
+}
+
+[data-skin="whatsapp"] .hf-MessageItem__message[data-side="out"] .hf-MessageItem__bubble[data-start] {
+  border-top-right-radius: 0;
+}
+
+[data-skin="whatsapp"] .hf-MessageItem__bubble[data-start]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 13px;
+  background: var(--bubble-in-bg);
+}
+
+[data-skin="whatsapp"] .hf-MessageItem__message[data-side="in"] .hf-MessageItem__bubble[data-start]::before {
+  left: -8px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+[data-skin="whatsapp"] .hf-MessageItem__message[data-side="out"] .hf-MessageItem__bubble[data-start]::before {
+  right: -8px;
+  background: var(--bubble-out-bg);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+[data-skin="whatsapp"] .hf-MessageItem__bubbleTime {
+  margin-top: 0;
+  font-size: var(--wa-meta-size);
+}
+
+/* Avisos do app no centro: a pílula dos avisos do WhatsApp, na cor do balão e com sombra fina. */
+
+[data-skin="whatsapp"] .hf-MessageItem__system {
+  border-radius: var(--wa-bubble-radius);
+  background: var(--bubble-in-bg);
+  box-shadow: var(--wa-bubble-shadow);
+  font-size: var(--wa-small-size);
+}
+
+/* ==== MessageList.module.css ==== */
+/* Skin WhatsApp (etapa 107): o dia numa pílula no meio, sem as linhas dos lados. */
+
+[data-skin="whatsapp"] .hf-MessageList__dayDivider {
+  justify-content: center;
+}
+
+[data-skin="whatsapp"] .hf-MessageList__dayDivider::before,
+[data-skin="whatsapp"] .hf-MessageList__dayDivider::after {
+  display: none;
+}
+
+[data-skin="whatsapp"] .hf-MessageList__dayDivider > * {
+  padding: 5px var(--space-3);
+  border-radius: var(--wa-bubble-radius);
+  background: var(--bubble-in-bg);
+  box-shadow: var(--wa-bubble-shadow);
+  color: var(--text-secondary);
+  font-size: var(--wa-small-size);
+  font-weight: var(--font-weight-regular);
+}
+
+/* ==== Modal.module.css ==== */
+/* Skin WhatsApp (etapa 108, ADR-099): janelas com cantos largos e o rodapé no fundo da janela. */
+
+[data-skin="whatsapp"] .hf-Modal__dialog {
+  border-radius: var(--wa-dialog-radius);
+  background: var(--bg-surface-overlay);
+  box-shadow: var(--wa-menu-shadow);
+}
+
+[data-skin="whatsapp"] .hf-Modal__title {
+  font-weight: var(--font-weight-regular);
+}
+
+[data-skin="whatsapp"] .hf-Modal__footer {
+  border-radius: 0 0 var(--wa-dialog-radius) var(--wa-dialog-radius);
+  background: transparent;
+}
+
+/* ==== ProtectionPanel.module.css ==== */
+/* Skin WhatsApp (etapa 109): cartão branco sem borda; o nível continua na faixa da esquerda
+   (o arranjo da skin fica como era, etapa 116). */
+
+[data-skin="whatsapp"] .hf-ProtectionPanel__panel {
+  border: none;
+  border-left: 4px solid var(--panel-tone);
+  background: var(--bg-surface-raised);
+  border-radius: var(--wa-menu-radius);
+  box-shadow: var(--wa-bubble-shadow);
+}
+
+/* ==== SearchPalette.module.css ==== */
+/*
+ * Skin WhatsApp (etapa 109, ADR-100): a busca como a da lista de conversas do WhatsApp. O campo
+ * numa pílula cinza com a lupa, os grupos com o título em verde e cada resultado como uma linha da
+ * lista, com o ícone num círculo. Os mesmos resultados, atalhos e teclas.
+ */
+
+[data-skin="whatsapp"] .hf-SearchPalette__palette {
+  border: none;
+  border-radius: var(--wa-menu-radius);
+  background: var(--solid-main, var(--bg-main));
+  box-shadow: var(--wa-menu-shadow);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__inputRow {
+  margin: var(--space-3) var(--space-3) var(--space-1);
+  padding: 0 var(--space-3);
+  border-bottom: none;
+  border-radius: var(--wa-input-radius);
+  background: var(--bg-rail);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__input {
+  height: var(--wa-search-height);
+  font-size: var(--wa-input-size);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__input::placeholder {
+  font-size: var(--wa-input-size);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__groupTitle {
+  padding: var(--space-4) var(--space-3) var(--space-2);
+  color: var(--accent);
+  font-size: var(--wa-preview-size);
+  font-weight: var(--font-weight-regular);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__result {
+  min-height: 60px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--wa-input-radius);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__result[aria-selected='true'] {
+  background: var(--bg-modifier-hover);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__resultIcon {
+  width: var(--wa-header-avatar);
+  height: var(--wa-header-avatar);
+  border-radius: 50%;
+  background: var(--bg-rail);
+  color: var(--text-secondary);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__resultTitle {
+  font-size: var(--wa-name-size);
+  font-weight: var(--font-weight-regular);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__resultSubtitle {
+  font-size: var(--wa-preview-size);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__footer {
+  border-top-color: transparent;
+  background: var(--bg-rail);
+}
+
+[data-skin="whatsapp"] .hf-SearchPalette__kbd {
+  border-color: transparent;
+  border-radius: var(--wa-input-radius);
+  background: var(--solid-main, var(--bg-main));
+}
+
+/* ==== Settings.module.css ==== */
+[data-skin="whatsapp"] .hf-Settings__nav {
+  flex: 0 0 400px;
+  justify-content: flex-start;
+  border-right: 1px solid var(--border-subtle);
+}
+
+[data-skin="whatsapp"] .hf-Settings__navInner {
+  width: 100%;
+  padding: 0 0 var(--space-6);
+}
+
+[data-skin="whatsapp"] .hf-Settings__navGroup + .hf-Settings__navGroup {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: var(--space-2) solid var(--bg-modifier-hover);
+}
+
+[data-skin="whatsapp"] .hf-Settings__navTitle {
+  margin: 0;
+  padding: var(--space-3) var(--space-5) var(--space-1);
+  color: var(--accent);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+[data-skin="whatsapp"] .hf-Settings__navItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: var(--space-5);
+  min-height: 60px;
+  margin: 0;
+  padding: var(--space-2) var(--space-5);
+  border-radius: 0;
+  color: var(--text-primary);
+  font-size: var(--wa-name-size);
+  font-weight: var(--font-weight-regular);
+}
+
+[data-skin="whatsapp"] .hf-Settings__navItem::after {
+  content: attr(data-hint);
+  grid-column: 2;
+  color: var(--text-muted);
+  font-size: var(--wa-preview-size);
+}
+
+[data-skin="whatsapp"] .hf-Settings__navItem[aria-current="page"] .hf-Settings__navIcon {
+  color: var(--accent);
+}
+
+[data-skin="whatsapp"] .hf-Settings__closeButton {
+  border: none;
+  background: var(--bg-modifier-hover);
+}
+
+[data-skin="whatsapp"] .hf-Settings__closeButton:hover {
+  background: var(--bg-modifier-selected);
+}
+
+/* ==== StartScreen.module.css ==== */
+/*
+ * Skin WhatsApp (etapa 109, ADR-100): a tela inicial como a tela de boas-vindas do WhatsApp
+ * Desktop. Fundo liso no cinza dos cabeçalhos com a faixa verde embaixo, uma coluna estreita no
+ * meio, as ações e os projetos em listas brancas com divisórias e as iniciais em círculos, como as
+ * conversas. Só aparência: os mesmos botões, na mesma ordem.
+ */
+
+[data-skin="whatsapp"] .hf-StartScreen__screen {
+  --bg-surface-raised: var(--solid-main);
+  border-bottom: var(--wa-intro-bar) solid var(--accent);
+  background: var(--solid-rail);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__content {
+  max-width: var(--wa-intro-width);
+  padding-top: var(--space-7);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__hero {
+  flex-direction: column;
+  text-align: center;
+  gap: var(--space-3);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__title {
+  font-size: var(--wa-intro-title-size);
+  font-weight: 300;
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__subtitle {
+  font-size: var(--wa-preview-size);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__actions,
+[data-skin="whatsapp"] .hf-StartScreen__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: var(--wa-menu-radius);
+  background: var(--solid-main);
+  box-shadow: var(--wa-bubble-shadow);
+  overflow: hidden;
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__action,
+[data-skin="whatsapp"] .hf-StartScreen__card {
+  min-height: var(--wa-row-height);
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  flex-direction: row;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__action + .hf-StartScreen__action,
+[data-skin="whatsapp"] .hf-StartScreen__card + .hf-StartScreen__card {
+  box-shadow: inset 0 1px 0 var(--border-subtle);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__action:hover,
+[data-skin="whatsapp"] .hf-StartScreen__card:hover {
+  border-color: transparent;
+  background: var(--bg-modifier-hover);
+  transform: none;
+}
+
+/* A sombra do hover (etapa 116) não vale nas listas da WhatsApp; as divisórias continuam. */
+
+[data-skin="whatsapp"] .hf-StartScreen__action:first-child:hover {
+  box-shadow: none;
+}
+
+/* O ícone de cada ação num círculo verde-claro, como os atalhos do WhatsApp. */
+
+[data-skin="whatsapp"] .hf-StartScreen__action > svg {
+  box-sizing: content-box;
+  padding: 12px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__actionText strong,
+[data-skin="whatsapp"] .hf-StartScreen__cardName {
+  font-size: var(--wa-name-size);
+  font-weight: var(--font-weight-regular);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__actionText span,
+[data-skin="whatsapp"] .hf-StartScreen__cardMeta {
+  font-size: var(--wa-preview-size);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__sectionTitle {
+  color: var(--accent);
+  font-size: var(--wa-preview-size);
+  font-weight: var(--font-weight-regular);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__highlight {
+  border: none;
+  border-radius: var(--wa-menu-radius);
+  background: var(--solid-main);
+  box-shadow: var(--wa-bubble-shadow);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__bigInitials,
+[data-skin="whatsapp"] .hf-StartScreen__initials {
+  border-radius: 50%;
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__initials {
+  width: var(--wa-row-avatar);
+  height: var(--wa-row-avatar);
+}
+
+[data-skin="whatsapp"] .hf-StartScreen__backgroundButton {
+  border-color: transparent;
+  background: var(--solid-main);
+  box-shadow: var(--wa-bubble-shadow);
+}
+
+/* ==== ThreadPanel.module.css ==== */
+/* Skin WhatsApp (etapa 108, ADR-099): a thread como a conversa, com o cabeçalho e a barra de
+   digitar no cinza dos cabeçalhos e as respostas sobre o fundo da conversa. */
+
+[data-skin="whatsapp"] .hf-ThreadPanel__panel {
+  background: var(--bg-chat);
+}
+
+[data-skin="whatsapp"] .hf-ThreadPanel__header {
+  height: var(--wa-header-height);
+  border-bottom: none;
+  background: var(--bg-rail);
+}
+
+[data-skin="whatsapp"] .hf-ThreadPanel__composer {
+  padding: 5px var(--space-3);
+  background: var(--bg-rail);
+}
+
+/* ==== UpcomingPanel.module.css ==== */
+/* Skin WhatsApp (etapa 109): cartão branco sem borda, título em verde e itens sem a faixa lateral. */
+
+[data-skin="whatsapp"] .hf-UpcomingPanel__panel {
+  border: none;
+  border-radius: var(--wa-menu-radius);
+  box-shadow: var(--wa-bubble-shadow);
+}
+
+[data-skin="whatsapp"] .hf-UpcomingPanel__title {
+  color: var(--accent);
+  font-size: var(--wa-preview-size);
+  font-weight: var(--font-weight-regular);
+}
+
+[data-skin="whatsapp"] .hf-UpcomingPanel__item {
+  border-radius: var(--wa-input-radius);
+}
+
+[data-skin="whatsapp"] .hf-UpcomingPanel__time {
+  min-width: 44px;
+  padding: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: inherit;
+  text-align: left;
+}
+
+/* ==== Workspace.module.css ==== */
+/* Skin WhatsApp (etapa 107, ADR-098): a barra de digitar no cinza dos cabeçalhos, com 62 px. */
+
+[data-skin="whatsapp"] .hf-Workspace__composerArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--wa-composer-height);
+  padding: 5px var(--space-4);
+  background: var(--bg-rail);
+}

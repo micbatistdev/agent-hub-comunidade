@@ -1,0 +1,880 @@
+/*
+ * Estilo da skin "lol" do Hub Flow, gerado por scripts/compilar-skins.mjs a partir de
+ * comunidade/fonte/lol/ (não edite aqui: edite a fonte e rode o script).
+ */
+
+/* ==== tokens.css ==== */
+/*
+ * Skin League of Legends (etapa 121, ADR-111): medidas e fonte do cliente do jogo. A Beaufort e a
+ * Spiegel do cliente são da Riot e não vêm com o Windows: a primeira da lista só vale se estiver
+ * instalada; senão, a Palatino Linotype (serifada de caixa alta parecida, que vem com o Windows).
+ * As cores saem do tema (o dourado é o --accent e as bordas o --border-strong), para a skin
+ * vestir qualquer tema; com o tema League of Legends, fica o dourado hextech do cliente.
+ */
+:root[data-skin='lol'] {
+  --lol-nav-height: 64px;
+  --lol-nav-item-size: 40px;
+  --lol-play-height: 36px;
+  --lol-play-min-width: 168px;
+  --lol-tab-size: 14px;
+  --lol-tab-spacing: 0.08em;
+  --lol-title-spacing: 0.06em;
+  --lol-label-spacing: 0.08em;
+  --lol-border-width: 1px;
+  --lol-frame-width: 2px;
+  --lol-chamfer: 10px;
+  /* Etapa 123: o losango no meio da borda de cima dos cartões, como os do cliente. */
+  --lol-notch: 8px;
+  /* O triângulo da aba aberta e a ponta em seta do botão de novo projeto (etapa 123). */
+  --lol-tab-notch: 7px;
+  --lol-play-tip: 14px;
+  /* O X das janelas num círculo de aro dourado no canto (etapa 123). */
+  --lol-close-size: 30px;
+  --lol-avatar-ring: 2px;
+  --lol-display-font: 'Beaufort for LOL', 'Beaufort', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+  --lol-body-font: 'Spiegel', 'Segoe UI', system-ui, sans-serif;
+  /* Brilhos: o dourado e o ciano mágico, sempre misturados com as cores do tema. */
+  --lol-gold-line: linear-gradient(90deg, transparent, var(--border-strong) 20%, var(--accent) 50%, var(--border-strong) 80%, transparent);
+  --lol-gold-frame: linear-gradient(180deg, var(--accent), var(--border-strong));
+  --lol-glow: 0 0 12px color-mix(in srgb, var(--accent) 35%, transparent);
+  --lol-magic-glow: 0 0 14px color-mix(in srgb, var(--status-info) 45%, transparent);
+  --lol-chat-backdrop:
+    radial-gradient(ellipse 90% 60% at 50% 0%, color-mix(in srgb, var(--status-info) 9%, transparent), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 110%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 70%),
+    var(--bg-chat);
+}
+
+:root[data-skin='lol'] {
+  /*
+   * Etapa 122 (skin League of Legends): a moldura hextech (dourado com um fio de ciano, a que a
+   * skin põe nos avatares sem moldura) e as dos elos, inspiradas nas cores dos elos do jogo e
+   * desenhadas do zero (só gradientes; nada das artes do jogo).
+   */
+  --frame-hextech: conic-gradient(from 200deg, #785a28, #c8aa6e, #f0e6d2, #c8aa6e, #463714, #0ac8b9, #785a28);
+  --frame-elo-ferro: conic-gradient(from 210deg, #4a4643, #8c8580, #5c5652, #a39b94, #4a4643);
+  --frame-elo-bronze: conic-gradient(from 210deg, #6b3d22, #c98a5a, #8a5532, #e0a878, #6b3d22);
+  --frame-elo-prata: conic-gradient(from 210deg, #6f7a85, #dfe6ee, #8d99a6, #ffffff, #6f7a85);
+  --frame-elo-ouro: conic-gradient(from 210deg, #8a6212, #f7d774, #b8860b, #fff3b0, #8a6212);
+  --frame-elo-platina: conic-gradient(from 210deg, #2c7a7b, #9de5df, #3c9f9a, #d8fff9, #2c7a7b);
+  --frame-elo-esmeralda: conic-gradient(from 210deg, #0b6b45, #3ee08f, #11915c, #b6ffd9, #0b6b45);
+  --frame-elo-diamante: conic-gradient(from 210deg, #3a4fb8, #9fb4ff, #5b6ee8, #e3e9ff, #3a4fb8);
+  --frame-elo-mestre: conic-gradient(from 210deg, #6b2d9b, #d79cff, #8e3fc9, #f3dcff, #6b2d9b);
+  --frame-elo-grao-mestre: conic-gradient(from 210deg, #8f1d2c, #ff6b6b, #b3243a, #ffd0d0, #8f1d2c);
+  --frame-elo-desafiante: conic-gradient(from 210deg, #1f5fa8, #f4d27a, #6fc3ff, #fff4c2, #c8aa6e, #1f5fa8);
+}
+
+/* Etapa 122: brilho dourado em formato de drop-shadow (para SVG). */
+:root[data-skin='lol'] {
+  --lol-glow-drop: 0 0 4px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/* Etapa 122: a sombra do texto do chat da partida (legível sobre qualquer fundo). */
+:root[data-skin='lol'] {
+  --lol-text-shadow: 0 1px 2px color-mix(in srgb, var(--bg-rail) 90%, transparent);
+}
+
+/* Cantos retos como no cliente (os avatares continuam redondos) e a fonte do jogo nos títulos. */
+
+:root[data-skin='lol'] {
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-rail-item: 50%;
+  --radius-rail-item-active: 50%;
+  --header-height: 56px;
+  --font-sans: var(--lol-body-font);
+  --font-display: var(--lol-display-font);
+}
+
+/* ==== global.css ==== */
+/* Skin League of Legends (etapa 121, ADR-111): menus retos, com o filete bronze do cliente. */
+
+:root[data-skin='lol'] [role='menu'] {
+  border: var(--lol-border-width) solid var(--border-strong);
+  background: var(--bg-surface-overlay);
+}
+
+/*
+ * Etapa 122 (skin League of Legends): os ícones dos botões, abas e menus no traço dourado do
+ * cliente, que acende com brilho ao passar o mouse. Só os ícones soltos (filhos diretos): os que
+ * mostram estado (microfone desligado, perigo) e os dos botões principais ficam como estão.
+ */
+
+:root[data-skin='lol'] :where(button, [role='tab'], [role='menuitem'], [role='menuitemradio']):not([data-off]):not([data-variant='danger']):not([data-variant='primary']) > svg.lucide {
+  color: var(--accent);
+  transition:
+    color var(--duration-fast) var(--easing-standard),
+    filter var(--duration-fast) var(--easing-standard);
+}
+
+:root[data-skin='lol'] :where(button, [role='tab'], [role='menuitem'], [role='menuitemradio']):not([data-off]):not([data-variant='danger']):not([data-variant='primary']):hover > svg.lucide {
+  color: var(--text-primary);
+  filter: drop-shadow(var(--lol-glow-drop));
+}
+
+/* Etapa 123 (prints do cliente): campos e listas de escolha na caixa escura de borda bronze, que
+   fica dourada ao escrever. :where() deixa o peso mínimo: os campos com visual próprio vencem. */
+
+:root[data-skin='lol'] :where(input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']), select) {
+  border: var(--lol-border-width) solid var(--border-strong);
+  border-radius: 0;
+  background-color: var(--bg-rail);
+  color: var(--text-primary);
+}
+
+:root[data-skin='lol'] :where(input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']), select):focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* ==== AgentCard.module.css ==== */
+/* Skin League of Legends (etapa 123, print da coleção do cliente): os cartões dos agentes com o
+   fundo grafite, a borda bronze que fica dourada ao passar o mouse e o losango no meio da borda
+   de cima, como os cartões de skins e ícones da coleção. */
+
+[data-skin='lol'] .hf-AgentCard__card {
+  position: relative;
+  border-color: var(--border-strong);
+  background: linear-gradient(180deg, var(--bg-surface-raised), var(--bg-main));
+}
+
+[data-skin='lol'] .hf-AgentCard__card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--lol-glow);
+}
+
+[data-skin='lol'] .hf-AgentCard__card::before {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--lol-notch) / 2);
+  left: 50%;
+  width: var(--lol-notch);
+  height: var(--lol-notch);
+  border: var(--lol-border-width) solid var(--border-strong);
+  background: var(--bg-sidebar);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+[data-skin='lol'] .hf-AgentCard__card:hover::before {
+  border-color: var(--accent);
+}
+
+/* ==== AppShell.module.css ==== */
+[data-skin='lol'] .hf-AppShell__details {
+  border-left-color: var(--border-strong);
+}
+
+/* ---- Skin League of Legends (etapa 121, ADR-111) ----
+   A navegação do cliente do jogo: uma barra no topo, com a linha dourada embaixo; e o painel de
+   amigos à direita (as salas e os agentes), separado da conversa por um filete dourado. */
+[data-skin='lol'] .hf-AppShell__topNav {
+  position: relative;
+  flex: none;
+  height: var(--lol-nav-height);
+  background: var(--bg-rail);
+}
+
+[data-skin='lol'] .hf-AppShell__topNav::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--lol-border-width);
+  background: var(--lol-gold-line);
+  pointer-events: none;
+}
+
+[data-skin='lol'] .hf-AppShell__sidebar[data-side-panel] {
+  border-left: var(--lol-border-width) solid var(--border-strong);
+}
+
+/* ==== Button.module.css ==== */
+/* Skin League of Legends (etapa 121, ADR-111): os botões do cliente do jogo. Retos, com a letra do
+   jogo em caixa alta; o principal na caixa escura de moldura dourada (que acende ao passar o
+   mouse), o secundário com o filete bronze. */
+
+[data-skin='lol'] .hf-Button__button {
+  /* A caixa alta espaçada alarga o texto: o botão longo quebra a linha em vez de vazar do painel. */
+  max-width: 100%;
+  height: auto;
+  min-height: var(--control-height-lg);
+  white-space: normal;
+  text-align: center;
+  font-family: var(--lol-display-font);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-tab-spacing);
+  text-transform: uppercase;
+}
+
+[data-skin='lol'] .hf-Button__button[data-variant='primary'] {
+  border: var(--lol-frame-width) solid transparent;
+  border-image: var(--lol-gold-frame) 1;
+  background: linear-gradient(180deg, var(--bg-surface-raised), var(--bg-rail));
+  color: var(--text-secondary);
+}
+
+[data-skin='lol'] .hf-Button__button[data-variant='primary']:hover {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 22%, var(--bg-surface-raised)), var(--bg-rail));
+  color: var(--text-primary);
+  box-shadow: var(--lol-glow);
+}
+
+[data-skin='lol'] .hf-Button__button[data-variant='primary']:active {
+  background: var(--bg-rail);
+  color: var(--text-muted);
+}
+
+[data-skin='lol'] .hf-Button__button[data-variant='secondary'] {
+  background: var(--bg-rail);
+  color: var(--text-secondary);
+  box-shadow: inset 0 0 0 var(--lol-border-width) var(--border-strong);
+}
+
+[data-skin='lol'] .hf-Button__button[data-variant='secondary']:hover {
+  color: var(--text-primary);
+  box-shadow: inset 0 0 0 var(--lol-border-width) var(--accent);
+}
+
+[data-skin='lol'] .hf-Button__button[data-variant='danger'] {
+  box-shadow: inset 0 0 0 var(--lol-border-width) color-mix(in srgb, var(--status-danger) 60%, var(--text-primary));
+}
+
+[data-skin='lol'] .hf-Button__button[data-size='sm'] {
+  min-height: var(--control-height-sm);
+}
+
+/* ==== ChannelHeader.module.css ==== */
+/* Skin League of Legends (etapa 121, ADR-111): o título em caixa alta com a fonte do jogo e o
+   filete dourado que some nas pontas, como nos cabeçalhos do cliente. */
+
+[data-skin='lol'] .hf-ChannelHeader__header {
+  position: relative;
+  border-bottom: none;
+  box-shadow: none;
+  background: linear-gradient(180deg, var(--bg-rail), color-mix(in srgb, var(--bg-rail) 40%, transparent));
+}
+
+[data-skin='lol'] .hf-ChannelHeader__header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--lol-border-width);
+  background: var(--lol-gold-line);
+  pointer-events: none;
+}
+
+[data-skin='lol'] .hf-ChannelHeader__title {
+  font-family: var(--lol-display-font);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-title-spacing);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+[data-skin='lol'] .hf-ChannelHeader__divider {
+  background: var(--border-strong);
+}
+
+[data-skin='lol'] .hf-ChannelHeader__icon {
+  color: var(--text-secondary);
+}
+
+/* ==== Composer.module.css ==== */
+/* Skin League of Legends (etapa 121, ADR-111): a caixa do chat do jogo, reta e escura, com a
+   borda bronze em repouso e o dourado com brilho ao escrever. */
+
+[data-skin='lol'] .hf-Composer__composer {
+  background: color-mix(in srgb, var(--bg-rail) 85%, transparent);
+  box-shadow: inset 0 0 0 var(--lol-border-width) var(--border-strong);
+}
+
+[data-skin='lol'] .hf-Composer__composer:focus-within {
+  box-shadow:
+    inset 0 0 0 var(--lol-border-width) var(--accent),
+    var(--lol-glow);
+}
+
+[data-skin='lol'] .hf-Composer__send {
+  color: var(--accent);
+}
+
+[data-skin='lol'] .hf-Composer__send:hover {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--text-primary);
+  box-shadow: inset 0 0 0 var(--lol-border-width) var(--accent);
+}
+
+/* ==== ContextSidebar.module.css ==== */
+/* ---- Skin League of Legends (etapa 121, ADR-111): o painel de amigos do cliente do jogo ----
+   À direita da conversa. O seu perfil no topo (como o invocador), o nome do projeto em caixa
+   alta com a fonte do jogo, os grupos como "GERAL (3/10)" e as linhas retas, com o filete
+   dourado à esquerda da conversa aberta. */
+
+[data-skin='lol'] .hf-ContextSidebar__sidebar {
+  border-top-left-radius: 0;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent 30%),
+    var(--bg-sidebar);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__userBar {
+  order: -1;
+  height: var(--lol-nav-height);
+  padding: 0 var(--space-3);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--status-info) 10%, var(--bg-rail)), var(--bg-rail));
+  border-bottom: var(--lol-border-width) solid var(--border-strong);
+}
+
+/* Com o perfil no topo, o menu de presença abre para baixo. */
+
+[data-skin='lol'] .hf-ContextSidebar__userBar .hf-ContextSidebar__menu {
+  top: calc(100% + var(--space-2));
+  bottom: auto;
+  border: var(--lol-border-width) solid var(--border-strong);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__userName {
+  font-family: var(--lol-display-font);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-title-spacing);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__userStatus {
+  color: var(--status-success);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__header {
+  border-bottom: var(--lol-border-width) solid var(--border-subtle);
+}
+
+/* Etapa 123: o título pequeno e espaçado, como o "SOCIAL" no alto do painel do cliente. */
+
+[data-skin='lol'] .hf-ContextSidebar__headerTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-label-spacing);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__workflowChip {
+  border: var(--lol-border-width) solid var(--border-subtle);
+  background: color-mix(in srgb, var(--status-info) 8%, transparent);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__sectionHeader {
+  color: var(--text-secondary);
+  font-family: var(--lol-display-font);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-label-spacing);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__sectionHeader:hover {
+  color: var(--text-primary);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__areaLabel {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--lol-label-spacing);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__channel,
+[data-skin='lol'] .hf-ContextSidebar__dm,
+[data-skin='lol'] .hf-ContextSidebar__rowButton {
+  border-radius: 0;
+}
+
+[data-skin='lol'] .hf-ContextSidebar__dmName {
+  color: var(--text-primary);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__channel[data-selected],
+[data-skin='lol'] .hf-ContextSidebar__dm[data-selected] {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
+  box-shadow: inset var(--lol-frame-width) 0 0 var(--accent);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__channel[data-unread]::before,
+[data-skin='lol'] .hf-ContextSidebar__dm[data-unread]::before {
+  border-radius: 0;
+  background: var(--status-info);
+  box-shadow: var(--lol-magic-glow);
+}
+
+[data-skin='lol'] .hf-ContextSidebar__sectionHeader,
+[data-skin='lol'] .hf-ContextSidebar__areaLabel {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==== DetailsPanel.module.css ==== */
+/* Skin League of Legends (etapa 121, ADR-111): o título e os grupos com a fonte do jogo, em
+   dourado, e o painel no azul-noite dos painéis do cliente. */
+
+[data-skin='lol'] .hf-DetailsPanel__header {
+  border-bottom-color: var(--border-strong);
+}
+
+[data-skin='lol'] .hf-DetailsPanel__headerTitle {
+  font-family: var(--lol-display-font);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-title-spacing);
+  text-transform: uppercase;
+}
+
+[data-skin='lol'] .hf-DetailsPanel__groupTitle {
+  color: var(--accent);
+  font-family: var(--lol-display-font);
+  letter-spacing: var(--lol-label-spacing);
+}
+
+[data-skin='lol'] .hf-DetailsPanel__tab[aria-selected='true'] {
+  box-shadow:
+    inset 0 calc(-1 * var(--lol-frame-width)) 0 var(--accent),
+    0 6px 10px -8px var(--accent);
+}
+
+/* ==== GlobalRail.module.css ==== */
+/* ---- Skin League of Legends (etapas 121 a 123): a barra de navegação do cliente ----
+   Pelos prints do cliente (etapa 123): à esquerda, o símbolo num medalhão ciano de aro dourado
+   e o "Novo projeto" no formato do botão "Jogar" (caixa com a ponta em seta); depois, os
+   projetos como abas de texto em caixa alta, a aberta mais clara e com o triângulo dourado no
+   alto da barra; à direita, os ícones dourados soltos, com divisórias finas entre eles. */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__rail {
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--space-4);
+  gap: var(--space-4);
+  background: transparent;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list {
+  flex-direction: row;
+  align-items: stretch;
+  height: 100%;
+  gap: 0;
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:last-child {
+  align-items: center;
+  gap: var(--space-2);
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__item {
+  width: auto;
+  align-items: center;
+}
+
+/* O símbolo primeiro, o botão de novo projeto logo depois (como o "Jogar"), e as abas. */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__item:has(> .hf-GlobalRail__button[data-variant='home']) {
+  order: -2;
+  margin-right: var(--space-2);
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:first-child > .hf-GlobalRail__item:has(> .hf-GlobalRail__button[data-variant='action']) {
+  order: -1;
+  margin-right: var(--space-5);
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__separator {
+  display: none;
+}
+
+/* Sem a pílula do Discord: a aba aberta ganha o triângulo dourado no próprio botão (abaixo). */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__pill {
+  display: none;
+}
+
+/* Projetos: abas de texto (o nome inteiro, em caixa alta), no lugar das iniciais. */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='default'],
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='default']:hover,
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button[data-variant='default'] {
+  width: auto;
+  height: 100%;
+  padding: 0 var(--space-4);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--text-secondary);
+  font-family: var(--lol-display-font);
+  font-size: var(--lol-tab-size);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-tab-spacing);
+  text-transform: uppercase;
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='default']:hover {
+  color: var(--text-primary);
+}
+
+/* A aberta: o texto claro numa coluna que clareia de cima para baixo. */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button[data-variant='default'] {
+  color: var(--text-primary);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--text-primary) 9%, transparent), transparent 85%);
+}
+
+/* O triângulo dourado no alto da barra, em cima da aba aberta, como a marca da aba no cliente. */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='default'] {
+  position: relative;
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button[data-variant='default']::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: var(--lol-tab-notch) solid transparent;
+  border-right: var(--lol-tab-notch) solid transparent;
+  border-top: var(--lol-tab-notch) solid var(--accent);
+  transform: translateX(-50%);
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='default'] .hf-GlobalRail__initials {
+  display: none;
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='default']::after {
+  content: attr(aria-label);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* O símbolo num medalhão: miolo ciano escuro com brilho e o aro dourado, como o do cliente. */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='home'],
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='home']:hover,
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button[data-variant='home'] {
+  width: var(--lol-nav-item-size);
+  height: var(--lol-nav-item-size);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--status-info) 45%, var(--bg-rail)), var(--bg-rail) 75%);
+  box-shadow:
+    0 0 0 var(--lol-frame-width) var(--accent),
+    0 0 0 calc(var(--lol-frame-width) * 2) var(--bg-rail),
+    0 0 0 calc(var(--lol-frame-width) * 2 + var(--lol-border-width)) var(--border-strong);
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='home']:hover {
+  box-shadow:
+    0 0 0 var(--lol-frame-width) var(--text-primary),
+    0 0 0 calc(var(--lol-frame-width) * 2) var(--bg-rail),
+    0 0 0 calc(var(--lol-frame-width) * 2 + var(--lol-border-width)) var(--accent),
+    var(--lol-glow);
+}
+
+/* O símbolo da Início nos dourados do jogo (etapa 122). */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__button[data-variant='home'] svg {
+  --hub-mark-1: var(--text-primary);
+  --hub-mark-2: var(--accent);
+  filter: drop-shadow(var(--lol-glow-drop));
+}
+
+/* "Novo projeto" como o "Jogar": a moldura dourada e o miolo azul-petróleo, com a ponta em seta. */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:first-child .hf-GlobalRail__button[data-variant='action'],
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:first-child .hf-GlobalRail__button[data-variant='action']:hover {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: var(--lol-play-min-width);
+  height: var(--lol-play-height);
+  align-self: center;
+  padding: 0 calc(var(--space-4) + var(--lol-play-tip)) 0 var(--space-4);
+  border-radius: 0;
+  background: var(--lol-gold-frame);
+  box-shadow: none;
+  clip-path: polygon(0 0, calc(100% - var(--lol-play-tip)) 0, 100% 50%, calc(100% - var(--lol-play-tip)) 100%, 0 100%);
+  color: var(--text-primary);
+  font-family: var(--lol-display-font);
+  font-size: var(--lol-tab-size);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-tab-spacing);
+  text-transform: uppercase;
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:first-child .hf-GlobalRail__button[data-variant='action']::before {
+  content: '';
+  position: absolute;
+  inset: var(--lol-frame-width);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--status-info) 30%, var(--bg-rail)), color-mix(in srgb, var(--status-info) 10%, var(--bg-rail)));
+  clip-path: polygon(0 0, calc(100% - var(--lol-play-tip)) 0, 100% 50%, calc(100% - var(--lol-play-tip)) 100%, 0 100%);
+  transition: background var(--duration-fast) var(--easing-standard);
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:first-child .hf-GlobalRail__button[data-variant='action']:hover::before {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--status-info) 50%, var(--bg-rail)), color-mix(in srgb, var(--status-info) 20%, var(--bg-rail)));
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:first-child .hf-GlobalRail__button[data-variant='action']::after {
+  content: attr(aria-label);
+  position: relative;
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:first-child .hf-GlobalRail__button[data-variant='action'] svg {
+  display: none;
+}
+
+/* Agenda, busca e Configurações: ícones dourados soltos, com a divisória fina entre eles. */
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:last-child .hf-GlobalRail__button,
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:last-child .hf-GlobalRail__button:hover {
+  width: var(--lol-nav-item-size);
+  height: var(--lol-nav-item-size);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--accent);
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:last-child .hf-GlobalRail__button:hover {
+  color: var(--text-primary);
+  filter: drop-shadow(var(--lol-glow-drop));
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__list:last-child .hf-GlobalRail__item + .hf-GlobalRail__item::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  left: calc(-1 * var(--space-1));
+  width: var(--lol-border-width);
+  background: linear-gradient(180deg, transparent, var(--border-strong), transparent);
+}
+
+[data-skin='lol'] [data-top-nav] .hf-GlobalRail__badge {
+  top: var(--space-2);
+  right: 0;
+  bottom: auto;
+  border-color: var(--bg-rail);
+}
+
+/* ==== MessageItem.module.css ==== */
+/* ---- Skin League of Legends (etapas 121 a 123): a janela de chat do cliente do jogo ----
+   Escolha do usuário na etapa 123, pelo print do cliente: balões quase retos, os recebidos no
+   grafite à esquerda e os seus no dourado escuro à direita, com a pontinha no canto de cima do
+   primeiro balão do grupo; sem o avatar ao lado, como na janela de chat (o nome de quem fala
+   fica no topo do balão, no início do grupo). Os cartões seguem como caixas. */
+
+[data-skin='lol'] .hf-MessageItem__message {
+  grid-template-columns: minmax(0, 1fr);
+  padding-inline: var(--space-4);
+}
+
+[data-skin='lol'] .hf-MessageItem__bubble {
+  padding: var(--space-1-5) var(--space-3) var(--space-1);
+  border-radius: var(--radius-xs);
+  background: var(--bubble-in-bg);
+  color: var(--text-primary);
+}
+
+[data-skin='lol'] .hf-MessageItem__message[data-side='out'] .hf-MessageItem__bubble {
+  position: relative;
+  background: var(--bubble-out-bg);
+}
+
+/* A pontinha do seu balão, no canto de cima à direita, como no print. */
+
+[data-skin='lol'] .hf-MessageItem__message[data-side='out'] .hf-MessageItem__bubble[data-start]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: calc(-1 * var(--space-1-5));
+  border-top: var(--space-2) solid var(--bubble-out-bg);
+  border-right: var(--space-1-5) solid transparent;
+}
+
+[data-skin='lol'] .hf-MessageItem__message[data-side='out'] .hf-MessageItem__bubble .hf-MessageItem__bubbleTime {
+  color: color-mix(in srgb, var(--text-primary) 70%, transparent);
+}
+
+[data-skin='lol'] .hf-MessageItem__authorName {
+  font-family: var(--lol-display-font);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--lol-title-spacing);
+  color: var(--accent);
+}
+
+[data-skin='lol'] .hf-MessageItem__authorName[data-type='agent'] {
+  color: var(--status-info);
+}
+
+/* Cartões (comando, plano, ferramenta) com o losango no meio da borda de cima, como os do cliente. */
+
+[data-skin='lol'] .hf-MessageItem__body > .hf-MessageItem__tool,
+[data-skin='lol'] .hf-MessageItem__body > .hf-MessageItem__approval {
+  position: relative;
+  overflow: visible;
+}
+
+[data-skin='lol'] .hf-MessageItem__body > .hf-MessageItem__tool::before,
+[data-skin='lol'] .hf-MessageItem__body > .hf-MessageItem__approval::before {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--lol-notch) / 2);
+  left: 50%;
+  width: var(--lol-notch);
+  height: var(--lol-notch);
+  border: var(--lol-border-width) solid var(--border-strong);
+  background: var(--bg-chat);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* ==== MessageList.module.css ==== */
+/* Skin League of Legends (etapa 121, ADR-111): o dia em caixa alta entre filetes dourados. */
+
+[data-skin='lol'] .hf-MessageList__dayDivider {
+  color: var(--text-secondary);
+  font-family: var(--lol-display-font);
+  letter-spacing: var(--lol-label-spacing);
+  text-transform: uppercase;
+}
+
+[data-skin='lol'] .hf-MessageList__dayDivider::before {
+  background: linear-gradient(90deg, transparent, var(--border-strong));
+}
+
+[data-skin='lol'] .hf-MessageList__dayDivider::after {
+  background: linear-gradient(90deg, var(--border-strong), transparent);
+}
+
+/* ==== Modal.module.css ==== */
+/* Skin League of Legends (etapa 121, ADR-111): as janelas do cliente, retas, com a moldura
+   dourada de 2 px e o título em caixa alta com a fonte do jogo. */
+
+[data-skin='lol'] .hf-Modal__dialog {
+  border: var(--lol-frame-width) solid transparent;
+  border-image: var(--lol-gold-frame) 1;
+  background: var(--solid-main, var(--bg-main));
+  box-shadow: var(--shadow-3), var(--lol-glow);
+}
+
+[data-skin='lol'] .hf-Modal__title {
+  font-family: var(--lol-display-font);
+  letter-spacing: var(--lol-title-spacing);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+[data-skin='lol'] .hf-Modal__footer {
+  border-top: var(--lol-border-width) solid var(--border-subtle);
+  background: var(--bg-rail);
+}
+
+/* Etapa 123 (print "Sair agora?"): título e texto centrados, botões no meio e o X num círculo
+   de aro dourado encaixado no canto de cima da moldura. */
+
+[data-skin='lol'] .hf-Modal__dialog {
+  position: relative;
+}
+
+[data-skin='lol'] .hf-Modal__header {
+  justify-content: center;
+  padding-inline: var(--space-8);
+  text-align: center;
+}
+
+[data-skin='lol'] .hf-Modal__footer {
+  justify-content: center;
+}
+
+[data-skin='lol'] .hf-Modal__header > [data-close] {
+  position: absolute;
+  top: calc(-1 * var(--lol-close-size) / 2);
+  right: calc(-1 * var(--lol-close-size) / 2);
+  width: var(--lol-close-size);
+  height: var(--lol-close-size);
+  border-radius: 50%;
+  background: var(--bg-rail);
+  box-shadow:
+    0 0 0 var(--lol-frame-width) var(--accent),
+    0 0 0 calc(var(--lol-frame-width) + var(--lol-border-width)) var(--bg-rail);
+  color: var(--text-secondary);
+}
+
+[data-skin='lol'] .hf-Modal__header > [data-close]:hover {
+  color: var(--text-primary);
+  box-shadow:
+    0 0 0 var(--lol-frame-width) var(--text-primary),
+    var(--lol-glow);
+}
+
+/* ==== Settings.module.css ==== */
+/* ---- Skin League of Legends (etapa 121, ADR-111): as telas de opções do cliente do jogo ----
+   O menu à esquerda com os grupos em dourado e a seção aberta com o filete dourado; os títulos
+   em caixa alta com a fonte do jogo; o X num círculo de moldura dourada. */
+
+[data-skin='lol'] .hf-Settings__nav {
+  border-right: var(--lol-border-width) solid var(--border-strong);
+}
+
+[data-skin='lol'] .hf-Settings__navTitle {
+  color: var(--accent);
+  font-family: var(--lol-display-font);
+  letter-spacing: var(--lol-label-spacing);
+}
+
+[data-skin='lol'] .hf-Settings__navItem {
+  font-family: var(--lol-display-font);
+  letter-spacing: var(--lol-title-spacing);
+}
+
+[data-skin='lol'] .hf-Settings__navItem[aria-current='page'] {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+  box-shadow: inset var(--lol-frame-width) 0 0 var(--accent);
+}
+
+[data-skin='lol'] .hf-Settings__pageTitle {
+  font-family: var(--lol-display-font);
+  font-size: var(--font-size-xl);
+  letter-spacing: var(--lol-title-spacing);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+[data-skin='lol'] .hf-Settings__sectionTitle {
+  color: var(--accent);
+  font-family: var(--lol-display-font);
+  letter-spacing: var(--lol-label-spacing);
+}
+
+[data-skin='lol'] .hf-Settings__closeButton {
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
+}
+
+[data-skin='lol'] .hf-Settings__closeButton:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+  box-shadow: var(--lol-glow);
+}
+
+/* ==== Workspace.module.css ==== */
+/* Skin League of Legends (etapa 121, ADR-111): o azul-noite do cliente com o brilho mágico no
+   alto e o dourado embaixo, e a caixa de mensagem sobre a faixa escura do chat do jogo. */
+
+[data-skin='lol'] .hf-Workspace__workspace {
+  background: var(--lol-chat-backdrop);
+}
+
+[data-skin='lol'] .hf-Workspace__composerArea {
+  padding-top: var(--space-2);
+}

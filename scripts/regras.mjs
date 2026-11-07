@@ -42,7 +42,26 @@ export const CORES_OBRIGATORIAS = [
   'rail', 'sidebar', 'main', 'surface', 'text', 'textSecondary', 'textMuted',
   'link', 'accent', 'success', 'warning', 'danger', 'info'
 ]
-export const CORES_OPCIONAIS = ['overlay', 'titlebar', 'accentContrast', 'code', 'scrollbar']
+export const CORES_OPCIONAIS = ['overlay', 'titlebar', 'accentContrast', 'code', 'scrollbar', 'chat']
+/** Tokens finos que a paleta pode ajustar em "ajustes" (sempre cores; #RRGGBBAA para as translúcidas). */
+export const AJUSTES_DA_PALETA = [
+  'bubble-out-bg',
+  'bubble-in-bg',
+  'bg-modifier-hover',
+  'bg-modifier-selected',
+  'bg-modifier-active',
+  'border-subtle',
+  'border-strong',
+  'mention-bg',
+  'mention-text',
+  'focus-ring',
+  'avatar-1',
+  'avatar-2',
+  'avatar-3',
+  'avatar-4',
+  'avatar-5',
+  'avatar-6'
+]
 
 function texto(valor, campo, max, erros, obrigatorio = true) {
   if (valor === undefined && !obrigatorio) return
@@ -83,16 +102,7 @@ export function validarManifesto(m, pasta) {
   const permitidos = new Set(['formato', 'id', 'tipo', 'nome', 'autor', 'descricao', 'versao', 'previa'])
   if (m.tipo === 'tema') {
     permitidos.add('paleta')
-    const p = m.paleta
-    if (!p || typeof p !== 'object' || Array.isArray(p)) erros.push('"paleta" precisa ser um objeto com as cores')
-    else {
-      if (p.scheme !== 'dark' && p.scheme !== 'light') erros.push('"paleta.scheme" precisa ser "dark" ou "light"')
-      for (const c of CORES_OBRIGATORIAS) if (typeof p[c] !== 'string' || !COR.test(p[c])) erros.push(`"paleta.${c}" precisa ser uma cor como #1E1F22`)
-      for (const c of CORES_OPCIONAIS) if (p[c] !== undefined && (typeof p[c] !== 'string' || !COR.test(p[c]))) erros.push(`"paleta.${c}" precisa ser uma cor como #1E1F22`)
-      if (p.glass !== undefined && typeof p.glass !== 'boolean') erros.push('"paleta.glass" precisa ser true ou false')
-      const conhecidas = new Set(['scheme', 'glass', ...CORES_OBRIGATORIAS, ...CORES_OPCIONAIS])
-      for (const k of Object.keys(p)) if (!conhecidas.has(k)) erros.push(`"paleta.${k}" não é um campo conhecido`)
-    }
+    validarPaleta(m.paleta, erros)
   } else if (m.tipo === 'skin') {
     for (const k of CAMPOS_DA_SKIN) permitidos.add(k)
     validarSkin(m, erros, arquivos)
@@ -128,21 +138,44 @@ export function validarManifesto(m, pasta) {
 
 export const ARRANJOS = ['classico', 'foco', 'coluna', 'editor', 'topo']
 export const CARACTERISTICAS = ['listasDeConversa', 'mensagensSemAvatar', 'inicioNoLayout']
-const CAMPOS_DA_SKIN = ['layout', 'caracteristicas', 'estilo', 'imagens', 'paleta', 'molduras', 'molduraPadrao', 'icone', 'estiloPronto', 'abertura']
+const CAMPOS_DA_SKIN = ['layout', 'caracteristicas', 'estilo', 'imagens', 'paleta', 'outrosTemas', 'molduras', 'molduraPadrao', 'icone', 'estiloPronto', 'abertura']
+/** Temas a mais de uma skin, além da "paleta" (o claro e o escuro da WhatsApp, por exemplo). */
+export const MAX_OUTROS_TEMAS = 3
 /** Soma de todos os arquivos de uma skin. */
 export const LIMITE_DA_SKIN = 60 * 1024 * 1024
 
 const objeto = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
 const porcento = (v, max = 100) => v === undefined || (Number.isInteger(v) && v >= 0 && v <= max)
 
-function validarPaleta(p, erros) {
-  if (!objeto(p)) return erros.push('"paleta" precisa ser um objeto com as cores')
-  if (p.scheme !== 'dark' && p.scheme !== 'light') erros.push('"paleta.scheme" precisa ser "dark" ou "light"')
-  for (const c of CORES_OBRIGATORIAS) if (typeof p[c] !== 'string' || !COR.test(p[c])) erros.push(`"paleta.${c}" precisa ser uma cor como #1E1F22`)
-  for (const c of CORES_OPCIONAIS) if (p[c] !== undefined && (typeof p[c] !== 'string' || !COR.test(p[c]))) erros.push(`"paleta.${c}" precisa ser uma cor como #1E1F22`)
-  if (p.glass !== undefined && typeof p.glass !== 'boolean') erros.push('"paleta.glass" precisa ser true ou false')
-  const conhecidas = new Set(['scheme', 'glass', ...CORES_OBRIGATORIAS, ...CORES_OPCIONAIS])
-  for (const k of Object.keys(p)) if (!conhecidas.has(k)) erros.push(`"paleta.${k}" não é um campo conhecido`)
+function validarPaleta(p, erros, onde = 'paleta') {
+  if (!objeto(p)) return erros.push(`"${onde}" precisa ser um objeto com as cores`)
+  if (p.scheme !== 'dark' && p.scheme !== 'light') erros.push(`"${onde}.scheme" precisa ser "dark" ou "light"`)
+  for (const c of CORES_OBRIGATORIAS) if (typeof p[c] !== 'string' || !COR.test(p[c])) erros.push(`"${onde}.${c}" precisa ser uma cor como #1E1F22`)
+  for (const c of CORES_OPCIONAIS) if (p[c] !== undefined && (typeof p[c] !== 'string' || !COR.test(p[c]))) erros.push(`"${onde}.${c}" precisa ser uma cor como #1E1F22`)
+  if (p.glass !== undefined && typeof p.glass !== 'boolean') erros.push(`"${onde}.glass" precisa ser true ou false`)
+  if (p.ajustes !== undefined) {
+    if (!objeto(p.ajustes)) erros.push(`"${onde}.ajustes" precisa ser um objeto`)
+    else
+      for (const [k, v] of Object.entries(p.ajustes)) {
+        if (!AJUSTES_DA_PALETA.includes(k)) erros.push(`"${onde}.ajustes.${k}" não é um campo conhecido (use ${AJUSTES_DA_PALETA.join(', ')})`)
+        else if (typeof v !== 'string' || !COR.test(v)) erros.push(`"${onde}.ajustes.${k}" precisa ser uma cor como #1E1F22 ou #1E1F2280`)
+      }
+  }
+  const conhecidas = new Set(['scheme', 'glass', 'ajustes', ...CORES_OBRIGATORIAS, ...CORES_OPCIONAIS])
+  for (const k of Object.keys(p)) if (!conhecidas.has(k)) erros.push(`"${onde}.${k}" não é um campo conhecido`)
+}
+
+/** Confere um estilo pronto (o da skin ou o de um dos "outrosTemas"; esses, sem fundo). */
+function validarEstiloPronto(e, onde, erros, arquivo) {
+  if (!objeto(e)) return erros.push(`"${onde}" precisa ser um objeto`)
+  const campos = arquivo ? ['fundo', 'destaque', 'escurecer', 'opacidade', 'desfoque', 'cores', 'descricao'] : ['destaque', 'escurecer', 'opacidade', 'desfoque', 'cores', 'descricao']
+  for (const k of Object.keys(e)) if (!campos.includes(k)) erros.push(`"${onde}.${k}" não é um campo conhecido`)
+  if (arquivo && e.fundo !== undefined) arquivo(e.fundo, `${onde}.fundo`, 'fundo')
+  if (e.destaque !== undefined && (typeof e.destaque !== 'string' || !COR6.test(e.destaque))) erros.push(`"${onde}.destaque" precisa ser #RRGGBB`)
+  if (e.descricao !== undefined) texto(e.descricao, `${onde}.descricao`, 200, erros)
+  if (!porcento(e.escurecer) || !porcento(e.opacidade) || !porcento(e.desfoque, 20)) erros.push(`"${onde}": escurecer e opacidade vão de 0 a 100, desfoque de 0 a 20`)
+  if (e.cores !== undefined && (!Array.isArray(e.cores) || e.cores.length !== 4 || !e.cores.every((c) => typeof c === 'string' && COR6.test(c))))
+    erros.push(`"${onde}.cores" precisa ter 4 cores #RRGGBB`)
 }
 
 function validarSkin(m, erros, arquivos) {
@@ -197,16 +230,26 @@ function validarSkin(m, erros, arquivos) {
   if (m.molduraPadrao !== undefined && !molduras.has(m.molduraPadrao)) erros.push('"molduraPadrao" precisa ser o id de uma das "molduras"')
   if (m.icone !== undefined) arquivo(m.icone, 'icone', 'icone')
   if (m.estiloPronto !== undefined) {
-    const e = m.estiloPronto
-    if (!objeto(e)) erros.push('"estiloPronto" precisa ser um objeto')
+    if (m.paleta === undefined) erros.push('"estiloPronto" precisa da "paleta" da skin')
+    validarEstiloPronto(m.estiloPronto, 'estiloPronto', erros, arquivo)
+  }
+  if (m.outrosTemas !== undefined) {
+    if (m.paleta === undefined) erros.push('"outrosTemas" precisa da "paleta" da skin')
+    if (!Array.isArray(m.outrosTemas) || !m.outrosTemas.length || m.outrosTemas.length > MAX_OUTROS_TEMAS)
+      erros.push(`"outrosTemas" precisa ser uma lista de 1 a ${MAX_OUTROS_TEMAS} temas`)
     else {
-      if (m.paleta === undefined) erros.push('"estiloPronto" precisa da "paleta" da skin')
-      for (const k of Object.keys(e)) if (!['fundo', 'destaque', 'escurecer', 'opacidade', 'desfoque', 'cores'].includes(k)) erros.push(`"estiloPronto.${k}" não é um campo conhecido`)
-      if (e.fundo !== undefined) arquivo(e.fundo, 'estiloPronto.fundo', 'fundo')
-      if (e.destaque !== undefined && (typeof e.destaque !== 'string' || !COR6.test(e.destaque))) erros.push('"estiloPronto.destaque" precisa ser #RRGGBB')
-      if (!porcento(e.escurecer) || !porcento(e.opacidade) || !porcento(e.desfoque, 20)) erros.push('"estiloPronto": escurecer e opacidade vão de 0 a 100, desfoque de 0 a 20')
-      if (e.cores !== undefined && (!Array.isArray(e.cores) || e.cores.length !== 4 || !e.cores.every((c) => typeof c === 'string' && COR6.test(c))))
-        erros.push('"estiloPronto.cores" precisa ter 4 cores #RRGGBB')
+      const ids = new Set()
+      m.outrosTemas.forEach((t, i) => {
+        const onde = `outrosTemas[${i}]`
+        if (!objeto(t)) return erros.push(`"${onde}" precisa ser um objeto`)
+        for (const k of Object.keys(t)) if (!['id', 'nome', 'paleta', 'estiloPronto'].includes(k)) erros.push(`"${onde}.${k}" não é um campo conhecido`)
+        if (typeof t.id !== 'string' || !ID.test(t.id) || t.id.length > 24) erros.push(`"${onde}.id" inválido`)
+        else if (ids.has(t.id)) erros.push(`"${onde}.id" repetido`)
+        else ids.add(t.id)
+        texto(t.nome, `${onde}.nome`, 40, erros)
+        validarPaleta(t.paleta, erros, `${onde}.paleta`)
+        if (t.estiloPronto !== undefined) validarEstiloPronto(t.estiloPronto, `${onde}.estiloPronto`, erros, null)
+      })
     }
   }
   if (m.abertura !== undefined) {

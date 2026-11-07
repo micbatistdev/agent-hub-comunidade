@@ -64,11 +64,15 @@ pacotes/
 | `previa` | opcional: imagem pequena (até 1 MB) mostrada na loja; recomendada para fundos e molduras de imagem |
 | `arquivo` | fundo, som ou moldura de imagem: nome simples, como `fundo.png` |
 | `cores`, `animada`, `brilho` | moldura em degradê: de 2 a 6 cores `#RRGGBB`; animação e brilho opcionais |
-| `paleta` | tema: `scheme` (`dark` ou `light`) e as cores `rail`, `sidebar`, `main`, `surface`, `text`, `textSecondary`, `textMuted`, `link`, `accent`, `success`, `warning`, `danger`, `info`; opcionais: `overlay`, `titlebar`, `accentContrast`, `code`, `scrollbar` e `glass` |
+| `paleta` | tema: `scheme` (`dark` ou `light`) e as cores `rail`, `sidebar`, `main`, `surface`, `text`, `textSecondary`, `textMuted`, `link`, `accent`, `success`, `warning`, `danger`, `info`; opcionais: `overlay`, `titlebar`, `accentContrast`, `code`, `scrollbar`, `chat` (o fundo da conversa), `glass` e `ajustes` (veja abaixo) |
 
 As cores são sempre hexadecimais (`#RGB`, `#RRGGBB` ou `#RRGGBBAA`). A pasta não pode ter arquivos que o manifesto não cita.
 
+`ajustes` (opcional, numa paleta): cores finas além das principais, pelo nome do token do app: `bubble-out-bg` e `bubble-in-bg` (os balões), `bg-modifier-hover`, `bg-modifier-selected` e `bg-modifier-active` (os realces), `border-subtle` e `border-strong`, `mention-bg` e `mention-text`, `focus-ring` e `avatar-1` a `avatar-6`. Use `#RRGGBBAA` para as translúcidas, como `"bg-modifier-hover": "#0B141A0A"`.
+
 ## Skins do programa (`tipo: "skin"`)
+
+As skins oficiais (Foco, Slack, IDE, WhatsApp e League of Legends) estão em `pacotes/` e saem do projeto do app, onde fica a fonte delas (`comunidade/skins/` e `comunidade/fonte/`, publicadas por `scripts/publicar-skins.mjs` de lá).
 
 Uma skin muda o layout inteiro do app. Ela também é só dados: o app traz os arranjos de layout prontos e a skin escolhe um pelo nome; o resto é estilo (CSS conferido), imagens e, se quiser, tema, molduras, ícone, estilo pronto e abertura. Quem desinstala a skin não fica com nada dela no programa.
 
@@ -103,9 +107,10 @@ Uma skin muda o layout inteiro do app. Ela também é só dados: o app traz os a
 | `estilo` | obrigatório: um `.css` de até 256 KB (veja as regras abaixo) |
 | `imagens` | opcional: até 40 imagens (PNG, JPEG, WebP, GIF, até 5 MB cada), usadas no estilo e na abertura |
 | `paleta` | opcional: o tema da skin, como num pacote `tema`; o app veste junto com a skin |
+| `outrosTemas` | opcional (precisa da `paleta`): até 3 temas a mais, como o escuro de uma skin clara. Cada um tem `id` (até 24), `nome` (até 40), `paleta` e, opcional, `estiloPronto` (sem `fundo`) |
 | `molduras`, `molduraPadrao` | opcional: até 12 molduras (imagem ou degradê, como num pacote `moldura`, com `id` e `nome`); a padrão vai nos avatares de quem não escolheu nenhuma |
 | `icone` | opcional: o ícone do programa (`.ico`, até 1 MB), vestido junto com a skin |
-| `estiloPronto` | opcional (precisa da `paleta`): aparece em Estilos prontos. `fundo` (um arquivo como o de um pacote `fundo`), `destaque` (`#RRGGBB`), `escurecer` e `opacidade` (0 a 100), `desfoque` (0 a 20) e `cores` (4 cores para a miniatura) |
+| `estiloPronto` | opcional (precisa da `paleta`): aparece em Estilos prontos. `fundo` (um arquivo como o de um pacote `fundo`), `destaque` (`#RRGGBB`), `escurecer` e `opacidade` (0 a 100), `desfoque` (0 a 20), `cores` (4 cores para a miniatura) e `descricao` (até 200; sem ela, vale a da skin) |
 | `abertura` | opcional: a abertura do app com a skin vestida. `estilo` (`.css`, com as mesmas regras), `simbolo` (uma das `imagens`) e `titulo` (até 40). O HTML é sempre o do app; o estilo age em `#splash`, `.deco-1` a `.deco-6`, `.center`, `.mark`, `.title`, `.progress span` (largura pela variável `--progress`), `.step`, `.slow` e `.version` |
 
 **Regras do estilo** (o app confere de novo antes de usar): nada de `@import`; nada de barra invertida (escapes); `url()` só para as imagens do próprio pacote, escritas como `url(pacote:brilho.png)`, ou imagens embutidas (`data:image/...`); nada de `expression`, `behavior`, `-moz-binding` ou `javascript:`. O estilo age nas classes estáveis do app (`hf-<Componente>__<classe>`) e nos atributos `data-*`, sempre por baixo de `[data-skin='<id>']`. A soma de todos os arquivos de uma skin vai até 60 MB.

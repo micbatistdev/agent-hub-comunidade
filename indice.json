@@ -100,6 +100,224 @@
     },
     {
       "formato": 1,
+      "id": "lol",
+      "tipo": "skin",
+      "nome": "League of Legends",
+      "autor": "Hub Flow",
+      "descricao": "Como o cliente do LoL: navegação no topo com o botão dourado de novo projeto, os agentes à direita como o painel de amigos e a conversa em molduras douradas sobre o azul-noite.",
+      "versao": "1.0.0",
+      "layout": "topo",
+      "caracteristicas": {
+        "mensagensSemAvatar": true,
+        "inicioNoLayout": true
+      },
+      "estilo": "estilo.css",
+      "imagens": [
+        "simbolo.png"
+      ],
+      "paleta": {
+        "scheme": "dark",
+        "rail": "#010A13",
+        "sidebar": "#010A13",
+        "main": "#091428",
+        "chat": "#0A1428",
+        "surface": "#1E2328",
+        "overlay": "#010A13",
+        "titlebar": "#010A13",
+        "text": "#F0E6D2",
+        "textSecondary": "#CDBE91",
+        "textMuted": "#A09B8C",
+        "link": "#0AC8B9",
+        "accent": "#C8AA6E",
+        "accentContrast": "#010A13",
+        "success": "#0ACE83",
+        "warning": "#E8A33A",
+        "danger": "#E84057",
+        "info": "#0AC8B9",
+        "code": "#010A13",
+        "scrollbar": "#463714",
+        "ajustes": {
+          "bubble-out-bg": "#7A5F2C",
+          "bubble-in-bg": "#1E2328",
+          "bg-modifier-hover": "#F0E6D20D",
+          "bg-modifier-selected": "#C8AA6E1F",
+          "bg-modifier-active": "#C8AA6E2E",
+          "border-subtle": "#785A288C",
+          "border-strong": "#785A28",
+          "mention-bg": "#0AC8B92E",
+          "mention-text": "#CDFAFA",
+          "focus-ring": "#0AC8B9",
+          "avatar-1": "#0397AB",
+          "avatar-2": "#785A28",
+          "avatar-3": "#005A82",
+          "avatar-4": "#9E2A3A",
+          "avatar-5": "#0A7D6C",
+          "avatar-6": "#5B3A8C"
+        }
+      },
+      "molduras": [
+        {
+          "id": "hextech",
+          "nome": "Hextech",
+          "cores": [
+            "#785A28",
+            "#C8AA6E",
+            "#F0E6D2",
+            "#C8AA6E",
+            "#463714",
+            "#0AC8B9"
+          ],
+          "brilho": true
+        },
+        {
+          "id": "elo-ferro",
+          "nome": "Elo Ferro",
+          "cores": [
+            "#4A4643",
+            "#8C8580",
+            "#5C5652",
+            "#A39B94"
+          ]
+        },
+        {
+          "id": "elo-bronze",
+          "nome": "Elo Bronze",
+          "cores": [
+            "#6B3D22",
+            "#C98A5A",
+            "#8A5532",
+            "#E0A878"
+          ]
+        },
+        {
+          "id": "elo-prata",
+          "nome": "Elo Prata",
+          "cores": [
+            "#6F7A85",
+            "#DFE6EE",
+            "#8D99A6",
+            "#FFFFFF"
+          ]
+        },
+        {
+          "id": "elo-ouro",
+          "nome": "Elo Ouro",
+          "cores": [
+            "#8A6212",
+            "#F7D774",
+            "#B8860B",
+            "#FFF3B0"
+          ]
+        },
+        {
+          "id": "elo-platina",
+          "nome": "Elo Platina",
+          "cores": [
+            "#2C7A7B",
+            "#9DE5DF",
+            "#3C9F9A",
+            "#D8FFF9"
+          ]
+        },
+        {
+          "id": "elo-esmeralda",
+          "nome": "Elo Esmeralda",
+          "cores": [
+            "#0B6B45",
+            "#3EE08F",
+            "#11915C",
+            "#B6FFD9"
+          ],
+          "brilho": true
+        },
+        {
+          "id": "elo-diamante",
+          "nome": "Elo Diamante",
+          "cores": [
+            "#3A4FB8",
+            "#9FB4FF",
+            "#5B6EE8",
+            "#E3E9FF"
+          ],
+          "brilho": true
+        },
+        {
+          "id": "elo-mestre",
+          "nome": "Elo Mestre",
+          "cores": [
+            "#6B2D9B",
+            "#D79CFF",
+            "#8E3FC9",
+            "#F3DCFF"
+          ],
+          "brilho": true
+        },
+        {
+          "id": "elo-grao-mestre",
+          "nome": "Elo Grão-Mestre",
+          "cores": [
+            "#8F1D2C",
+            "#FF6B6B",
+            "#B3243A",
+            "#FFD0D0"
+          ],
+          "animada": true,
+          "brilho": true
+        },
+        {
+          "id": "elo-desafiante",
+          "nome": "Elo Desafiante",
+          "cores": [
+            "#1F5FA8",
+            "#F4D27A",
+            "#6FC3FF",
+            "#FFF4C2",
+            "#C8AA6E"
+          ],
+          "animada": true,
+          "brilho": true
+        }
+      ],
+      "molduraPadrao": "hextech",
+      "icone": "icone.ico",
+      "estiloPronto": {
+        "escurecer": 0,
+        "opacidade": 100,
+        "desfoque": 0,
+        "cores": [
+          "#010A13",
+          "#0A1428",
+          "#7A5F2C",
+          "#C8AA6E"
+        ],
+        "descricao": "O visual do cliente do LoL: azul-noite, molduras douradas hextech e o painel de amigos à direita"
+      },
+      "abertura": {
+        "estilo": "abertura.css",
+        "simbolo": "simbolo.png",
+        "titulo": "Carregando"
+      },
+      "arquivos": {
+        "estilo.css": {
+          "sha256": "c752e6c05741af960709aee178094046950269849b589f3ac2e0f4ac1e4fe7e7",
+          "tamanho": 32046
+        },
+        "simbolo.png": {
+          "sha256": "49b68aba423b16a041d3152d5208d282bd8b450300495cdcfee22b3d234cb550",
+          "tamanho": 48051
+        },
+        "icone.ico": {
+          "sha256": "e7227867a7f28c0c4ccf451c39ddfcd614f868d17f168ceddd99f4854fe74a44",
+          "tamanho": 80050
+        },
+        "abertura.css": {
+          "sha256": "b0bc3e2f730b2a9bcf620b1138552d7205e8f78894950b5da320c69e46b67ad0",
+          "tamanho": 6035
+        }
+      }
+    },
+    {
+      "formato": 1,
       "id": "por-do-sol",
       "tipo": "moldura",
       "nome": "Pôr do sol",
@@ -129,6 +347,117 @@
         "estilo.css": {
           "sha256": "8a6ce22a5fe891e207ae65ebf4ea5091a8f9b5b7add2cb2b204adff6beee1730",
           "tamanho": 361
+        }
+      }
+    },
+    {
+      "formato": 1,
+      "id": "whatsapp",
+      "tipo": "skin",
+      "nome": "WhatsApp",
+      "autor": "Hub Flow",
+      "descricao": "Faixa de ícones com os projetos em círculos, a lista de conversas com prévia e hora, a conversa em balões sobre o fundo bege e a barra de digitar como a do WhatsApp Desktop.",
+      "versao": "1.0.0",
+      "layout": "classico",
+      "caracteristicas": {
+        "listasDeConversa": true
+      },
+      "estilo": "estilo.css",
+      "paleta": {
+        "scheme": "light",
+        "rail": "#F0F2F5",
+        "sidebar": "#FFFFFF",
+        "main": "#FFFFFF",
+        "chat": "#EFEAE2",
+        "surface": "#FFFFFF",
+        "overlay": "#FFFFFF",
+        "titlebar": "#F0F2F5",
+        "text": "#111B21",
+        "textSecondary": "#3B4A54",
+        "textMuted": "#54656F",
+        "link": "#027EB5",
+        "accent": "#008069",
+        "success": "#008069",
+        "warning": "#B5730B",
+        "danger": "#D2153F",
+        "info": "#027EB5",
+        "code": "#F0F2F5",
+        "scrollbar": "#C7CCCF",
+        "ajustes": {
+          "bubble-out-bg": "#D9FDD3",
+          "bubble-in-bg": "#FFFFFF",
+          "bg-modifier-hover": "#0B141A0A",
+          "bg-modifier-selected": "#0B141A12",
+          "border-subtle": "#0B141A17",
+          "mention-bg": "#00A88429",
+          "mention-text": "#027A62"
+        }
+      },
+      "estiloPronto": {
+        "escurecer": 0,
+        "opacidade": 100,
+        "desfoque": 0,
+        "cores": [
+          "#F0F2F5",
+          "#EFEAE2",
+          "#D9FDD3",
+          "#008069"
+        ],
+        "descricao": "O visual do WhatsApp Desktop claro: lista de conversas, balões verdes e o fundo bege"
+      },
+      "outrosTemas": [
+        {
+          "id": "escuro",
+          "nome": "WhatsApp Escuro",
+          "paleta": {
+            "scheme": "dark",
+            "rail": "#202C33",
+            "sidebar": "#111B21",
+            "main": "#111B21",
+            "chat": "#0B141A",
+            "surface": "#202C33",
+            "overlay": "#233138",
+            "titlebar": "#202C33",
+            "text": "#E9EDEF",
+            "textSecondary": "#D1D7DB",
+            "textMuted": "#8696A0",
+            "link": "#53BDEB",
+            "accent": "#00A884",
+            "accentContrast": "#111B21",
+            "success": "#00A884",
+            "warning": "#FFB02E",
+            "danger": "#F15C6D",
+            "info": "#53BDEB",
+            "code": "#0B141A",
+            "scrollbar": "#374248",
+            "ajustes": {
+              "bubble-out-bg": "#005C4B",
+              "bubble-in-bg": "#202C33",
+              "bg-modifier-hover": "#E9EDEF0D",
+              "bg-modifier-selected": "#E9EDEF17",
+              "border-subtle": "#E9EDEF14",
+              "mention-bg": "#00A88438",
+              "mention-text": "#25D366"
+            }
+          },
+          "estiloPronto": {
+            "escurecer": 0,
+            "opacidade": 100,
+            "desfoque": 0,
+            "cores": [
+              "#202C33",
+              "#0B141A",
+              "#005C4B",
+              "#00A884"
+            ],
+            "descricao": "O visual do WhatsApp Desktop no modo escuro: grafite azulado e balões verde-petróleo"
+          }
+        }
+      ],
+      "arquivos": {
+        "estilo.css": {
+          "sha256": "c6464965a31207cefc336042a7330ac03fa6ef6fe9b0689d5c28e589ea65bbec",
+          "tamanho": 27060
         }
       }
     }
