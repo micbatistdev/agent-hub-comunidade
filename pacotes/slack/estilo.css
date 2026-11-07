@@ -1,0 +1,9 @@
+/*
+ * Skin Slack (etapa 68 do Hub Flow; pacote desde a etapa 125).
+ * O arranjo "coluna" do app põe os projetos numa faixa no topo da coluna e as salas embaixo.
+ * Desde a etapa 87 ela usa os balões em dois lados; fica só um pouco mais de ar entre as mensagens.
+ */
+[data-skin='slack'] .hf-MessageItem__message {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}

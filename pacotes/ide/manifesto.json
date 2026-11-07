@@ -1,0 +1,11 @@
+{
+  "formato": 1,
+  "id": "ide",
+  "tipo": "skin",
+  "nome": "IDE (VS Code)",
+  "autor": "Hub Flow",
+  "descricao": "Barra de atividades fina como a do VS Code, as salas ao lado, a conversa como um editor com a aba em cima e a barra de status embaixo.",
+  "versao": "1.0.0",
+  "layout": "editor",
+  "estilo": "estilo.css"
+}

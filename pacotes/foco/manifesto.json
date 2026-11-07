@@ -1,0 +1,11 @@
+{
+  "formato": 1,
+  "id": "foco",
+  "tipo": "skin",
+  "nome": "Foco",
+  "autor": "Hub Flow",
+  "descricao": "Só a conversa, no centro. As barras se escondem e aparecem ao encostar o mouse na borda da janela.",
+  "versao": "1.0.0",
+  "layout": "foco",
+  "estilo": "estilo.css"
+}

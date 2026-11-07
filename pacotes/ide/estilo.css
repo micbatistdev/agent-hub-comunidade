@@ -1,0 +1,68 @@
+/*
+ * Skin IDE (etapa 68 do Hub Flow; pacote desde a etapa 125).
+ * O arranjo "editor" do app põe a aba em cima da conversa e a barra de status embaixo. Este
+ * estilo deixa a faixa de projetos como a barra de atividades do VS Code: fina, com os ícones
+ * sem fundo colorido e o ativo marcado por uma barra fina à esquerda.
+ */
+[data-skin='ide'] {
+  --ide-activity-width: 48px;
+  --ide-activity-item-size: 34px;
+}
+
+[data-skin='ide'] .hf-GlobalRail__rail {
+  width: var(--ide-activity-width);
+  padding: var(--space-1) 0;
+}
+
+[data-skin='ide'] .hf-GlobalRail__list {
+  gap: var(--space-1);
+}
+
+[data-skin='ide'] .hf-GlobalRail__button,
+[data-skin='ide'] .hf-GlobalRail__button:hover,
+[data-skin='ide'] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button {
+  width: var(--ide-activity-item-size);
+  height: var(--ide-activity-item-size);
+  border-radius: var(--radius-sm);
+}
+
+/* Sem fundo colorido: o ícone acende, e o ativo ganha a barra fina à esquerda. */
+[data-skin='ide'] .hf-GlobalRail__button,
+[data-skin='ide'] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+[data-skin='ide'] .hf-GlobalRail__button:hover,
+[data-skin='ide'] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button {
+  color: var(--text-primary);
+}
+
+[data-skin='ide'] .hf-GlobalRail__pill {
+  width: 2px;
+  border-radius: 0;
+  background: var(--accent);
+}
+
+[data-skin='ide'] .hf-GlobalRail__item:hover .hf-GlobalRail__pill,
+[data-skin='ide'] .hf-GlobalRail__item[data-unread] .hf-GlobalRail__pill {
+  height: 0;
+}
+
+[data-skin='ide'] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__pill {
+  height: var(--ide-activity-item-size);
+}
+
+[data-skin='ide'] .hf-GlobalRail__separator {
+  width: var(--space-6);
+}
+
+/*
+ * Com a Início aberta, a skin padrão pinta a curva do logo na cor de contraste (o fundo vira o
+ * destaque). Aqui o fundo não é o destaque: a curva volta ao ciano do Hub Flow, herdado da raiz.
+ * O :root repetido iguala a força da regra do app, e este estilo vem depois dela.
+ */
+:root:root[data-skin='ide'] .hf-GlobalRail__item[data-selected] .hf-GlobalRail__button[data-variant='home'] svg {
+  --hub-mark-1: inherit;
+  --hub-mark-2: inherit;
+}

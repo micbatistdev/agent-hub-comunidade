@@ -50,6 +50,23 @@
     },
     {
       "formato": 1,
+      "id": "foco",
+      "tipo": "skin",
+      "nome": "Foco",
+      "autor": "Hub Flow",
+      "descricao": "Só a conversa, no centro. As barras se escondem e aparecem ao encostar o mouse na borda da janela.",
+      "versao": "1.0.0",
+      "layout": "foco",
+      "estilo": "estilo.css",
+      "arquivos": {
+        "estilo.css": {
+          "sha256": "3bbf44751aae6c7424e366ec5789819b9c455927171b9f876cd95398bcce67c8",
+          "tamanho": 240
+        }
+      }
+    },
+    {
+      "formato": 1,
       "id": "gota-de-cristal",
       "tipo": "som",
       "nome": "Gota de cristal",
@@ -61,6 +78,23 @@
         "som.wav": {
           "sha256": "1b9f37b485eeb6b67da7e68f827ec794e39f05e50b2ae0405abe029afb48ae37",
           "tamanho": 48554
+        }
+      }
+    },
+    {
+      "formato": 1,
+      "id": "ide",
+      "tipo": "skin",
+      "nome": "IDE (VS Code)",
+      "autor": "Hub Flow",
+      "descricao": "Barra de atividades fina como a do VS Code, as salas ao lado, a conversa como um editor com a aba em cima e a barra de status embaixo.",
+      "versao": "1.0.0",
+      "layout": "editor",
+      "estilo": "estilo.css",
+      "arquivos": {
+        "estilo.css": {
+          "sha256": "b241aec44ccb9ed242f6a171177205f497d8ceee7b461643f82f3b8ca9983524",
+          "tamanho": 2221
         }
       }
     },
@@ -80,6 +114,23 @@
       "animada": true,
       "brilho": true,
       "arquivos": {}
+    },
+    {
+      "formato": 1,
+      "id": "slack",
+      "tipo": "skin",
+      "nome": "Slack",
+      "autor": "Hub Flow",
+      "descricao": "Uma coluna só à esquerda, com os projetos numa faixa no topo e as salas e conversas embaixo; threads à direita.",
+      "versao": "1.0.0",
+      "layout": "coluna",
+      "estilo": "estilo.css",
+      "arquivos": {
+        "estilo.css": {
+          "sha256": "8a6ce22a5fe891e207ae65ebf4ea5091a8f9b5b7add2cb2b204adff6beee1730",
+          "tamanho": 361
+        }
+      }
     }
   ]
 }

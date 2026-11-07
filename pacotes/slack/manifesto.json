@@ -1,0 +1,11 @@
+{
+  "formato": 1,
+  "id": "slack",
+  "tipo": "skin",
+  "nome": "Slack",
+  "autor": "Hub Flow",
+  "descricao": "Uma coluna só à esquerda, com os projetos numa faixa no topo e as salas e conversas embaixo; threads à direita.",
+  "versao": "1.0.0",
+  "layout": "coluna",
+  "estilo": "estilo.css"
+}
